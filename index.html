@@ -9,14 +9,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     <style>
-      /* Custom styles and animations */
-      body {
-        font-family: 'Inter', sans-serif;
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+      
+      /* --- Hero Video Styling --- */
+      .hero-video-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
       }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Poppins', sans-serif;
+      .hero-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-      /* Animation for elements scrolling into view */
+      
+      /* --- Animations --- */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
       .animate-on-scroll {
         opacity: 0;
         transform: translateY(30px);
@@ -26,20 +43,46 @@
         opacity: 1;
         transform: translateY(0);
       }
-      /* Custom animation for hero text */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      
+      /* --- Mobile Menu Animation --- */
+      #mobileMenu {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s ease-in-out;
       }
-      .fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
+      #mobileMenu.open { grid-template-rows: 1fr; }
+      #mobileMenu > div { overflow: hidden; }
+
+      /* --- Trek Card Hover Effect --- */
+      .trek-card .card-image-wrapper {
+        position: relative;
+        overflow: hidden;
       }
+      .trek-card .card-image-wrapper::after {
+        content: attr(data-difficulty);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem 1.5rem 1rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .trek-card:hover .card-image-wrapper::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* --- Testimonial Slider --- */
+      .testimonial-slider { scroll-snap-type: x mandatory; }
+      .testimonial-slide { scroll-snap-align: center; }
     </style>
   </head>
   <body class="bg-slate-50 text-slate-700">
@@ -49,142 +92,194 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <div class="flex-shrink-0">
-            <a href="#" class="text-3xl font-bold text-green-800">Nepal<span class="text-green-600">Treks</span></a>
+            <a href="index.html" class="text-3xl font-bold text-green-800">Nepal<span class="text-green-600">Treks</span></a>
           </div>
           <div class="hidden md:block">
             <ul class="ml-10 flex items-baseline space-x-8">
-              <li><a href="#" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300">Home</a></li>
-               <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300">About</a></li>
+              <li><a href="index.html" class="text-green-600 font-bold">Home</a></li>
+              <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300">About</a></li>
               <li><a href="packages.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300">Packages</a></li>
               <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300">Gallery</a></li>
-              <li><a href="contact.html" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-all duration-300 shadow hover:shadow-lg">Contact Us</a></li>
+              <li><a href="contact.html" class="bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-all duration-300 shadow hover:shadow-lg transform hover:-translate-y-0.5">Contact Us</a></li>
             </ul>
           </div>
           <div class="md:hidden">
-            <button id="menuBtn" class="text-slate-800 focus:outline-none">
-              <svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-              <svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <button id="menuBtn" class="text-slate-800 focus:outline-none p-2"><svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg><svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
           </div>
         </div>
       </div>
-      <!-- Mobile Menu -->
-      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md transition-all duration-500 ease-in-out max-h-0 overflow-hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a href="#" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Home</a>
-          <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">About</a>
-          <a href="destination.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Destinations</a>
-          <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Packages</a>
-          <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Gallery</a>
-          <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Contact</a>
+      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
+        <div>
+           <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
+             <a href="index.html" class="block bg-green-100 text-green-700 px-3 py-2 rounded-md font-medium">Home</a>
+             <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">About</a>
+             <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Packages</a>
+             <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Gallery</a>
+             <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium">Contact</a>
+           </div>
         </div>
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="bg-cover bg-center h-screen" style="background-image: url('https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
-      <div class="bg-black/50 h-full flex items-center justify-center">
-        <div class="text-center text-white px-4">
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold fade-in-up" style="animation-delay: 0.2s;">Discover The Soul of The Himalayas</h1>
-          <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto fade-in-up" style="animation-delay: 0.4s;">Unforgettable trekking adventures crafted by local experts in the heart of Nepal.</p>
-          <a href="#" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 fade-in-up" style="animation-delay: 0.6s;">Explore Our Treks</a>
+    <!-- Hero Section with Video Background -->
+    <header class="relative h-screen flex items-center justify-center text-center text-white" style="background-image: url('https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center;">
+        <div class="hero-video-wrapper">
+            <video playsinline autoplay muted loop class="hero-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-beautiful-shot-of-a-himalayan-mountain-4264-large.mp4" type="video/mp4">
+            </video>
         </div>
-      </div>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative z-10 px-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold fade-in-up" style="animation-delay: 0.2s;">Discover The Soul of The Himalayas</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto fade-in-up" style="animation-delay: 0.4s;">Unforgettable trekking adventures crafted by local experts in the heart of Nepal.</p>
+            <a href="packages.html" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 fade-in-up" style="animation-delay: 0.6s;">Explore Our Treks</a>
+        </div>
     </header>
 
     <!-- Why Choose Us Section -->
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 animate-on-scroll">Why Trek With Us?</h2>
-          <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-on-scroll" style="transition-delay: 100ms;">We provide more than just a trail; we offer an experience that's safe, authentic, and unforgettable.</p>
+    <section class="py-20 lg:py-28 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="animate-on-scroll">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight">An Adventure That Cares</h2>
+                    <p class="mt-6 text-lg text-slate-600">We don't just guide you on a trail; we invite you into our home. Our treks are built on three core principles:</p>
+                    <ul class="mt-6 space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-xl bg-green-100 text-green-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286z" /></svg></div></div>
+                            <div class="ml-4"><h3 class="text-lg font-semibold text-slate-800">Safety First</h3><p class="mt-1 text-slate-600">Certified guides, top-tier equipment, and 24/7 support ensure your peace of mind.</p></div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-xl bg-green-100 text-green-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg></div></div>
+                            <div class="ml-4"><h3 class="text-lg font-semibold text-slate-800">Local Expertise</h3><p class="mt-1 text-slate-600">Our guides share authentic stories and lead you to hidden gems only locals know.</p></div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0"><div class="flex items-center justify-center h-12 w-12 rounded-xl bg-green-100 text-green-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg></div></div>
+                            <div class="ml-4"><h3 class="text-lg font-semibold text-slate-800">Sustainable Travel</h3><p class="mt-1 text-slate-600">We're committed to eco-friendly practices that protect nature and support local communities.</p></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 150ms;">
+                    <!-- THIS IS THE UPDATED IMAGE -->
+                    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80" alt="A smiling Nepalese guide with a stunning Himalayan mountain range in the background" class="rounded-xl shadow-2xl w-full h-full object-cover">
+                </div>
+            </div>
         </div>
-        <div class="mt-12 grid gap-10 md:grid-cols-3">
-          <!-- Feature 1 -->
-          <div class="text-center animate-on-scroll" style="transition-delay: 200ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mx-auto">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg>
-            </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800">Safety First</h3>
-            <p class="mt-2 text-slate-600">Our certified guides prioritize your safety with extensive training and emergency protocols.</p>
-          </div>
-          <!-- Feature 2 -->
-          <div class="text-center animate-on-scroll" style="transition-delay: 300ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mx-auto">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
-            </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800">Expert Local Guides</h3>
-            <p class="mt-2 text-slate-600">Discover hidden gems and local culture with guides who call the Himalayas their home.</p>
-          </div>
-          <!-- Feature 3 -->
-          <div class="text-center animate-on-scroll" style="transition-delay: 400ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mx-auto">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
-            </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800">Responsible Tourism</h3>
-            <p class="mt-2 text-slate-600">We are committed to eco-friendly practices that support local communities and preserve nature.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Trekking Packages Section -->
-    <section class="py-20 bg-slate-50">
+    <section class="py-20 lg:py-28 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 animate-on-scroll">Popular Trekking Packages</h2>
           <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-on-scroll" style="transition-delay: 100ms;">Choose your next adventure from our most beloved trekking routes.</p>
         </div>
-        <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <!-- Package Card 1 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 200ms;">
-            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" class="w-full h-56 object-cover" alt="Everest Base Camp Trek" />
+          <div class="trek-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 200ms;">
+            <div class="card-image-wrapper" data-difficulty="Challenging">
+              <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" class="w-full h-56 object-cover" alt="Everest Base Camp Trek" />
+            </div>
             <div class="p-6">
               <h3 class="text-2xl font-bold text-slate-800">Everest Base Camp</h3>
-              <div class="flex justify-between items-center mt-4 text-slate-600 font-medium">
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>14 Days</span>
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.25l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg>Challenging</span>
+              <div class="flex items-center mt-4 text-slate-600 font-medium text-sm">
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1.5 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>14 Days</span>
               </div>
               <p class="mt-3 text-slate-600">Follow the footsteps of legends to the base of the world's highest peak.</p>
-              <a href="#" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
+              <a href="packages.html" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
             </div>
           </div>
           <!-- Package Card 2 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 300ms;">
-            <img src="./images/annapurna.jpg" class="w-full h-56 object-cover" alt="Annapurna Circuit Trek" />
+          <div class="trek-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 300ms;">
+            <div class="card-image-wrapper" data-difficulty="Moderate">
+              <img src="./images/annapurna.jpg" class="w-full h-56 object-cover" alt="Annapurna Circuit Trek" />
+            </div>
             <div class="p-6">
               <h3 class="text-2xl font-bold text-slate-800">Annapurna Circuit</h3>
-              <div class="flex justify-between items-center mt-4 text-slate-600 font-medium">
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>12-16 Days</span>
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.25l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg>Moderate</span>
+              <div class="flex items-center mt-4 text-slate-600 font-medium text-sm">
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1.5 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>12-16 Days</span>
               </div>
               <p class="mt-3 text-slate-600">A classic trek offering diverse landscapes, from lush forests to arid high deserts.</p>
-              <a href="#" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
+              <a href="packages.html" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
             </div>
           </div>
           <!-- Package Card 3 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 400ms;">
-            <img src="./images/langtang.webp" class="w-full h-56 object-cover" alt="Langtang Valley Trek" />
+          <div class="trek-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-on-scroll" style="transition-delay: 400ms;">
+            <div class="card-image-wrapper" data-difficulty="Easy-Moderate">
+              <img src="./images/langtang.webp" class="w-full h-56 object-cover" alt="Langtang Valley Trek" />
+            </div>
             <div class="p-6">
               <h3 class="text-2xl font-bold text-slate-800">Langtang Valley</h3>
-              <div class="flex justify-between items-center mt-4 text-slate-600 font-medium">
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>7-10 Days</span>
-                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 text-green-600"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.25l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg>Easy-Moderate</span>
+              <div class="flex items-center mt-4 text-slate-600 font-medium text-sm">
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1.5 text-green-600"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>7-10 Days</span>
               </div>
               <p class="mt-3 text-slate-600">A peaceful, less-crowded trail with stunning views and rich Tamang culture.</p>
-              <a href="#" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
+              <a href="packages.html" class="mt-6 inline-block w-full text-center bg-green-100 text-green-800 font-semibold px-6 py-3 rounded-lg hover:bg-green-200 transition-colors duration-300">Learn More</a>
             </div>
           </div>
         </div>
       </div>
     </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 animate-on-scroll">Hear From Our Trekkers</h2>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-on-scroll" style="transition-delay: 100ms;">Don't just take our word for it. Here's what fellow adventurers have to say.</p>
+        </div>
+        <div class="relative mt-16 animate-on-scroll" style="transition-delay: 200ms;">
+          <div id="testimonial-slider" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide flex-shrink-0 w-full lg:w-1/2 p-4">
+              <div class="bg-slate-50 p-8 rounded-xl shadow-sm h-full">
+                <p class="text-slate-600 leading-relaxed">"The EBC trek was the experience of a lifetime. The guides at Nepal Treks were not only professional but felt like family. Every detail was handled flawlessly. I can't recommend them enough!"</p>
+                <div class="mt-6 flex items-center">
+                  <img class="w-12 h-12 rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emily Carter">
+                  <div class="ml-4"><p class="font-semibold text-slate-800">Emily Carter</p><p class="text-sm text-slate-500">Everest Base Camp Trek</p></div>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide flex-shrink-0 w-full lg:w-1/2 p-4">
+              <div class="bg-slate-50 p-8 rounded-xl shadow-sm h-full">
+                <p class="text-slate-600 leading-relaxed">"Our Annapurna Circuit trek was stunning. The cultural insights from our guide, Rinzin, made the journey so much richer. The organization was seamless from start to finish. Thank you, Nepal Treks!"</p>
+                <div class="mt-6 flex items-center">
+                  <img class="w-12 h-12 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="James O'Malley">
+                  <div class="ml-4"><p class="font-semibold text-slate-800">James O'Malley</p><p class="text-sm text-slate-500">Annapurna Circuit Trek</p></div>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide flex-shrink-0 w-full lg:w-1/2 p-4">
+              <div class="bg-slate-50 p-8 rounded-xl shadow-sm h-full">
+                <p class="text-slate-600 leading-relaxed">"As a solo female traveler, safety was my top concern. The team made me feel safe and supported every step of the way on the Langtang trek. It was a beautiful and empowering experience."</p>
+                <div class="mt-6 flex items-center">
+                  <img class="w-12 h-12 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Aisha Khan">
+                  <div class="ml-4"><p class="font-semibold text-slate-800">Aisha Khan</p><p class="text-sm text-slate-500">Langtang Valley Trek</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="testimonial-dots" class="mt-8 flex justify-center space-x-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="relative bg-gray-800 py-20 sm:py-28">
+      <div class="absolute inset-0">
+   <img class="w-full h-full object-cover" src="./images/ctbg.webp" alt="Prayer flags in the Himalayas">
+        <div class="absolute inset-0 bg-green-900/70 mix-blend-multiply"></div>
+      </div>
+      <div class="relative max-w-4xl mx-auto text-center px-4">
+        <h2 class="text-3xl font-extrabold text-white sm:text-4xl animate-on-scroll">Your Himalayan Story Begins Here.</h2>
+        <p class="mt-4 text-lg text-green-100 animate-on-scroll" style="transition-delay: 150ms;">Ready to write your own chapter in the mountains? Let's plan an adventure you'll never forget.</p>
+        <a href="contact.html" class="mt-8 inline-block bg-white text-green-800 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transform hover:scale-105 hover:bg-green-50 transition-all duration-300 animate-on-scroll" style="transition-delay: 300ms;">Start Planning Today</a>
+      </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-green-800 text-white">
+     <footer class="bg-green-800 text-white">
       <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- About -->
         <div class="col-span-1 md:col-span-1">
@@ -197,8 +292,8 @@
           <ul class="mt-4 space-y-2">
             <li><a href="about.html" class="hover:text-green-400 transition-colors">About Us</a></li>
             <li><a href="packages.html" class="hover:text-green-400 transition-colors">Our Treks</a></li>
-            <li><a href="#" class="hover:text-green-400 transition-colors">Gallery</a></li>
-            <li><a href="#" class="hover:text-green-400 transition-colors">Contact</a></li>
+            <li><a href="gallery.html" class="hover:text-green-400 transition-colors">Gallery</a></li>
+            <li><a href="contact.html" class="hover:text-green-400 transition-colors">Contact</a></li>
           </ul>
         </div>
         <!-- Contact Info -->
@@ -230,68 +325,87 @@
       </div>
     </footer>
 
-
     <script>
-      // --- Mobile Menu Toggle ---
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuIcon = document.getElementById('menuIcon');
-      const closeIcon = document.getElementById('closeIcon');
-
-      menuBtn.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.contains('max-h-96');
-        
-        // Use max-h for smooth transition
-        mobileMenu.classList.toggle('max-h-96', !isOpen);
-        mobileMenu.classList.toggle('max-h-0', isOpen);
-        
-        // Add padding when open
-        mobileMenu.classList.toggle('pt-2', !isOpen);
-        mobileMenu.classList.toggle('pb-3', !isOpen);
-
-        // Toggle icons
-        menuIcon.classList.toggle('hidden', !isOpen);
-        closeIcon.classList.toggle('hidden', isOpen);
-      });
-
-      // --- Scroll Animation ---
-      const scrollElements = document.querySelectorAll('.animate-on-scroll');
-
-      const elementInView = (el, dividend = 1) => {
-        const elementTop = el.getBoundingClientRect().top;
-        return (
-          elementTop <=
-          (window.innerHeight || document.documentElement.clientHeight) / dividend
-        );
-      };
-
-      const displayScrollElement = (element) => {
-        element.classList.add('is-visible');
-      };
-
-      const hideScrollElement = (element) => {
-        element.classList.remove('is-visible');
-      };
-
-      const handleScrollAnimation = () => {
-        scrollElements.forEach((el) => {
-          if (elementInView(el, 1.25)) {
-            displayScrollElement(el);
-          } 
-          // Optional: uncomment below to hide element when it scrolls out of view
-          // else {
-          //   hideScrollElement(el);
-          // }
+      document.addEventListener('DOMContentLoaded', () => {
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuIcon = document.getElementById("menuIcon");
+        const closeIcon = document.getElementById("closeIcon");
+        menuBtn.addEventListener("click", () => {
+          const isOpen = mobileMenu.classList.contains("open");
+          mobileMenu.classList.toggle("open", !isOpen);
+          menuIcon.classList.toggle("hidden", !isOpen);
+          closeIcon.classList.toggle("hidden", isOpen);
         });
-      };
 
-      window.addEventListener('scroll', () => {
-        handleScrollAnimation();
+        // --- Intersection Observer for Scroll Animations ---
+        const scrollElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        scrollElements.forEach(el => observer.observe(el));
+
+        // --- Testimonial Slider Logic ---
+        const slider = document.getElementById('testimonial-slider');
+        const dotsContainer = document.getElementById('testimonial-dots');
+        if (slider) {
+          const slides = Array.from(slider.children);
+          let activeIndex = 0;
+
+          // Create dots
+          slides.forEach((slide, i) => {
+            const dot = document.createElement('button');
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors', 'duration-300');
+            dot.classList.add(i === 0 ? 'bg-green-600' : 'bg-slate-300', 'hover:bg-green-500');
+            dot.addEventListener('click', () => {
+              goToSlide(i);
+              resetInterval();
+            });
+            dotsContainer.appendChild(dot);
+          });
+          const dots = Array.from(dotsContainer.children);
+
+          const updateDots = (index) => {
+             dots.forEach((dot, i) => {
+              dot.classList.toggle('bg-green-600', i === index);
+              dot.classList.toggle('bg-slate-300', i !== index);
+            });
+          };
+
+          const goToSlide = (index) => {
+            slider.scrollTo({
+              left: slider.offsetWidth * index,
+              behavior: 'smooth'
+            });
+            activeIndex = index;
+            updateDots(index);
+
+          };
+          
+          let autoSlideInterval = setInterval(() => {
+            const nextIndex = (activeIndex + 1) % slides.length;
+            goToSlide(nextIndex);
+          }, 5000);
+
+          const resetInterval = () => {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+              const nextIndex = (activeIndex + 1) % slides.length;
+              goToSlide(nextIndex);
+            }, 5000);
+          };
+          
+          // Recalculate on resize
+          window.addEventListener('resize', () => goToSlide(activeIndex));
+        }
       });
-
-     
-      handleScrollAnimation();
-
     </script>
   </body>
 </html>
