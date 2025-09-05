@@ -53,12 +53,11 @@
   </head>
   <body class="bg-slate-50 text-slate-700">
 
-    <!-- Navbar -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-20 transition-all duration-300">
+<nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <div class="flex-shrink-0">
-            <a href="index.html" class="text-3xl font-bold text-green-800 animate-pulse">Nepal<span class="text-green-600">Treks</span></a>
+            <a href="index.html" class="text-3xl font-bold text-green-800">Nepal<span class="text-green-600">Treks</span></a>
           </div>
           <div class="hidden md:block">
             <ul class="ml-10 flex items-baseline space-x-8">
@@ -66,21 +65,28 @@
               <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">About<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
               <li><a href="packages.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Packages<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
               <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
+              <!-- CONTACT link is now active (Contact Us button) -->
               <li><a href="contact.html" class="bg-green-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105">Contact Us</a></li>
             </ul>
           </div>
           <div class="md:hidden">
-            <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors"><svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg><svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors">
+              <svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+              <svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
           </div>
         </div>
       </div>
-      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md transition-all duration-500 ease-in-out max-h-0 overflow-hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Home</a>
-            <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">About</a>
-            <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Packages</a>
-            <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Gallery</a>
-            <a href="contact.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200">Contact</a>
+      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
+        <div>
+           <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
+              <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Home</a>
+              <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">About</a>
+              <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Packages</a>
+              <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Gallery</a>
+              <!-- CONTACT link is now active in mobile menu -->
+              <a href="contact.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200">Contact</a>
+           </div>
         </div>
       </div>
     </nav>
