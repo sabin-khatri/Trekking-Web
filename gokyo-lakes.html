@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gokyo Lakes Trek | Nepal Treks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1000px;
+            animation: zoom 0.3s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0.8)}
+            to {transform: scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .itinerary-day {
+            transition: all 0.3s ease;
+        }
+        
+        .itinerary-day:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-anchor {
+            scroll-margin-top: 80px; /* Adjusted for fixed top section height */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 pt-16">
+    <!-- Fixed Top Section with Back and Book Buttons -->
+    <div class="fixed top-0 left-0 w-full bg-white py-4 px-6 shadow-sm z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="packages.html" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-full transition-all duration-300 flex items-center">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Packages
+            </a>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md transition-all duration-300">
+                Book Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Package Header -->
+    <header class="relative h-screen">
+        <div class="absolute inset-0">
+            <img src="./images/glt/4.jpg"
+                 alt="Gokyo Lakes Trek" 
+                 class="w-full h-full object-cover"
+                 onerror="this.src='./images/gokyo-lakes.webp';">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10 h-full flex items-end pb-20">
+            <div class="max-w-4xl text-white">
+                <div class="inline-block bg-green-600 text-white px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                    12-14 Days • Challenging
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Gokyo Lakes Trek</h1>
+                <p class="text-xl mb-8">Discover emerald-green glacial lakes and panoramic views of four 8,000m peaks in this spectacular alternative to EBC</p>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-green-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Khumbu Region, Nepal</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-green-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Best Season: Mar-May, Sep-Nov</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Left Column - Main Content -->
+            <div class="lg:col-span-2">
+                <!-- Key Content Chain -->
+                <section id="key-content-chain" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Key Content Chain</h2>
+                    <p class="text-lg text-slate-700 mb-6">
+                        This section highlights the core experiences of the Gokyo Lakes Trek, showcasing its turquoise lakes and Himalayan vistas.
+                    </p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">✈️</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Flight to Lukla</h3>
+                            <p class="text-sm text-slate-600">Begin with a thrilling flight to Lukla, the gateway to the Everest Region.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🚶‍♂️</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Scenic Trekking Route</h3>
+                            <p class="text-sm text-slate-600">Trek through Sherpa villages and alpine meadows to the Gokyo Valley.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🏔️</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Gokyo Ri</h3>
+                            <p class="text-sm text-slate-600">Climb Gokyo Ri for panoramic views of Everest, Cho Oyu, and more.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">💧</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Gokyo Lakes</h3>
+                            <p class="text-sm text-slate-600">Explore the stunning turquoise glacial lakes of Gokyo.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🧘</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Sherpa Culture</h3>
+                            <p class="text-sm text-slate-600">Immerse in the traditions of the Sherpa community in Namche Bazaar.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🗻</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Ngozumpa Glacier</h3>
+                            <p class="text-sm text-slate-600">Witness the largest glacier in Nepal near Gokyo.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Overview Section -->
+                <section id="overview" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Trek Overview</h2>
+                    <p class="text-lg text-slate-700 mb-6">
+                        The Gokyo Lakes Trek is a spectacular alternative to the Everest Base Camp trek, offering breathtaking views of four 8,000m peaks (Everest, Lhotse, Makalu, and Cho Oyu) and the serene turquoise Gokyo Lakes. This trek takes you through the heart of the Khumbu Region, passing vibrant Sherpa villages, the bustling market of Namche Bazaar, and the majestic Ngozumpa Glacier. A highlight is climbing Gokyo Ri (5,357m) for unparalleled Himalayan vistas.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Highlights</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Panoramic views of Everest, Lhotse, Makalu, and Cho Oyu from Gokyo Ri</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Explore the turquoise Gokyo Lakes and Ngozumpa Glacier</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Experience Sherpa culture in Namche Bazaar and Gokyo</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Trek through the scenic Sagarmatha National Park</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Quick Facts</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Duration</span>
+                                    <span class="font-semibold">12-14 Days</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Max Altitude</span>
+                                    <span class="font-semibold">5,357m (17,575ft)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Trek Difficulty</span>
+                                    <span class="font-semibold">Moderate to Strenuous</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Accommodation</span>
+                                    <span class="font-semibold">Teahouses/Lodges</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600">Best Seasons</span>
+                                    <span class="font-semibold">Spring, Autumn</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Itinerary Section -->
+                <section id="itinerary" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Detailed Itinerary (13 Days)</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Day 1 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 1: Arrival in Kathmandu (1,400m)</h3>
+                            <p class="text-slate-700 mb-3">Arrive at Tribhuvan International Airport, transfer to your hotel, and attend a trek briefing in the evening.</p>
+                        </div>
+                        
+                        <!-- Day 2 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 2: Fly to Lukla (2,860m) & Trek to Phakding (2,610m)</h3>
+                            <p class="text-slate-700 mb-3">Take a 35-minute flight to Lukla, then trek 3-4 hours to Phakding along the Dudh Koshi River.</p>
+                        </div>
+                        
+                        <!-- Day 3 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 3: Trek to Namche Bazaar (3,440m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 5-6 hours through pine forests and suspension bridges to the Sherpa hub of Namche Bazaar.</p>
+                        </div>
+                        
+                        <!-- Day 4 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 4: Acclimatization Day in Namche Bazaar</h3>
+                            <p class="text-slate-700 mb-3">Rest and explore Namche Bazaar, with optional hikes to Everest View Hotel for panoramic views.</p>
+                        </div>
+                        
+                        <!-- Day 5 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 5: Trek to Phortse Thanga (3,680m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 5-6 hours through rhododendron forests and along the Dudh Koshi to Phortse Thanga.</p>
+                        </div>
+                        
+                        <!-- Day 6 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 6: Trek to Machhermo (4,470m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 4-5 hours through yak pastures and small villages to Machhermo.</p>
+                        </div>
+                        
+                        <!-- Day 7 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 7: Trek to Gokyo (4,790m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 4-5 hours to Gokyo, passing the first two Gokyo Lakes and the Ngozumpa Glacier.</p>
+                        </div>
+                        
+                        <!-- Day 8 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 8: Acclimatization Day in Gokyo</h3>
+                            <p class="text-slate-700 mb-3">Explore the Gokyo Lakes or hike to the fifth lake for views of Cho Oyu and the Ngozumpa Glacier.</p>
+                        </div>
+                        
+                        <!-- Day 9 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 9: Climb Gokyo Ri (5,357m) & Trek to Thagnak (4,700m)</h3>
+                            <p class="text-slate-700 mb-3">Early morning climb to Gokyo Ri for sunrise views, then trek 3-4 hours to Thagnak.</p>
+                        </div>
+                        
+                        <!-- Day 10 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 10: Trek to Dzongla (4,830m) via Cho La Pass (5,420m)</h3>
+                            <p class="text-slate-700 mb-3">Cross the challenging Cho La Pass (7-8 hours) to Dzongla, with stunning glacier views.</p>
+                        </div>
+                        
+                        <!-- Day 11 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 11: Trek to Lobuche (4,940m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 4-5 hours to Lobuche, joining the Everest Base Camp trail.</p>
+                        </div>
+                        
+                        <!-- Day 12 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 12: Trek to Namche Bazaar (3,440m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours back to Namche Bazaar through scenic trails.</p>
+                        </div>
+                        
+                        <!-- Day 13 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 13: Trek to Lukla (2,860m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours to Lukla, completing the trekking loop.</p>
+                        </div>
+                        
+                        <!-- Day 14 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 14: Fly to Kathmandu</h3>
+                            <p class="text-slate-700 mb-3">Morning flight to Kathmandu, followed by a farewell dinner in the evening.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Gallery Section -->
+                <section id="gallery" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Photo Gallery</h2>
+                    
+                    <div class="gallery-grid">
+                        <img src="./images/glt/6.jpg"
+                             alt="Gokyo Lakes view" 
+                             class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" 
+                             onclick="openModal(this)"
+                             onerror="this.src='./images/gokyo-lakes.webp';">
+                        
+                        <img src="./images/glt/1.jpg"
+                             alt="Gokyo Ri" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/glt/2.jpg"
+                             alt="Ngozumpa Glacier" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/glt/3.jpg"
+                             alt="Sherpa village" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/glt/4.jpg"
+                             alt="Cho La Pass" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/glt/5.jpg"
+                             alt="Namche Bazaar" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                    </div>
+                    
+                    <!-- Modal for image gallery -->
+                    <div id="imageModal" class="modal">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <img class="modal-content" id="modalImage">
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column - Booking & Details -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-20">
+                    <div id="includes" class="bg-white rounded-xl shadow-xl p-6 mb-6 section-anchor">
+                        <div class="text-center mb-6">
+                            <span class="text-3xl font-bold text-green-700">Rs.1,75,000</span>
+                            <p class="text-slate-600">per person</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-2">Trip Includes</h3>
+                                <ul class="text-slate-600 space-y-1 text-sm">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Airport transfers and domestic flights (Kathmandu-Lukla-Kathmandu)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>All accommodation during trek (teahouses/lodges)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>All meals during trek (breakfast, lunch, dinner)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Experienced guide and porters (1 porter for every 2 trekkers)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Sagarmatha National Park Permit and TIMS card</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-2">Trip Excludes</h3>
+                                <ul class="text-slate-600 space-y-1 text-sm">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>International flights to and from Kathmandu</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Travel and medical insurance</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Personal expenses (e.g., drinks, snacks, laundry)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Tips for guides and porters</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Additional accommodation or meals in Kathmandu</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-all duration-300 mt-6">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+
+    <!-- JavaScript for Modal -->
+    <script>
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html> 
