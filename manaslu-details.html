@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manaslu Circuit Trek | Nepal Treks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1000px;
+            animation: zoom 0.3s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0.8)}
+            to {transform: scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .itinerary-day {
+            transition: all 0.3s ease;
+        }
+        
+        .itinerary-day:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-anchor {
+            scroll-margin-top: 80px; /* Adjusted for fixed top section height */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 pt-16">
+    <!-- Fixed Top Section with Back and Book Buttons -->
+    <div class="fixed top-0 left-0 w-full bg-white py-4 px-6 shadow-sm z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="packages.html" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-full transition-all duration-300 flex items-center">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Packages
+            </a>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md transition-all duration-300">
+                Book Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Package Header -->
+    <header class="relative h-screen">
+        <div class="absolute inset-0">
+            <img src="./images/manaslu.jpeg" 
+                 alt="Manaslu Circuit Trek" 
+                 class="w-full h-full object-cover"
+                 onerror="this.src='./images/manaslu.jpeg';">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10 h-full flex items-end pb-20">
+            <div class="max-w-4xl text-white">
+                <div class="inline-block bg-green-600 text-white px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                    14-16 Days • Challenging
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Manaslu Circuit Trek</h1>
+                <p class="text-xl mb-8">A remote and culturally rich trek around Mount Manaslu, featuring the challenging Larkya La Pass and diverse landscapes from subtropical forests to alpine meadows.</p>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-green-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Manaslu Region, Nepal</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-green-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Best Season: Mar-May, Sep-Nov</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Left Column - Main Content -->
+            <div class="lg:col-span-2">
+                <!-- Key Content Chain -->
+                <section id="key-content-chain" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Key Content Chain</h2>
+                    <p class="text-lg text-slate-700 mb-6">
+                        This section highlights the core experiences of the Manaslu Circuit Trek, showcasing its remote trails and cultural richness.
+                    </p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🚐</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Drive to Soti Khola</h3>
+                            <p class="text-sm text-slate-600">Begin with a scenic drive to Soti Khola, the starting point of the trek.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🚶‍♂️</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Remote Trekking Route</h3>
+                            <p class="text-sm text-slate-600">Trek through untouched villages and diverse landscapes to Samagaon.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🏔️</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Larkya La Pass</h3>
+                            <p class="text-sm text-slate-600">Cross the challenging Larkya La Pass at 5,160m for stunning views.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🗻</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Mount Manaslu</h3>
+                            <p class="text-sm text-slate-600">Enjoy close-up views of the world’s eighth-highest peak, Manaslu.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🧘</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Tibetan Culture</h3>
+                            <p class="text-sm text-slate-600">Immerse in the Buddhist culture of the Tsum Valley and Samagaon.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3">🌿</div>
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Diverse Landscapes</h3>
+                            <p class="text-sm text-slate-600">Experience subtropical forests, rivers, and alpine meadows.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Overview Section -->
+                <section id="overview" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Trek Overview</h2>
+                    <p class="text-lg text-slate-700 mb-6">
+                        The Manaslu Circuit Trek is a remote and less-crowded alternative to other Himalayan treks, circling the majestic Mount Manaslu (8,163m), the world’s eighth-highest peak. This challenging trek takes you through diverse landscapes, from subtropical forests to high-altitude alpine meadows, and crosses the dramatic Larkya La Pass (5,160m). Along the way, explore the rich Tibetan-influenced culture of the Tsum Valley and Samagaon, with ancient monasteries and vibrant local traditions.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Highlights</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Stunning views of Mount Manaslu and surrounding peaks</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Cross the challenging Larkya La Pass (5,160m)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Explore Tibetan Buddhist culture in Samagaon and Tsum Valley</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Trek through diverse landscapes and remote villages</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">Quick Facts</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Duration</span>
+                                    <span class="font-semibold">14-16 Days</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Max Altitude</span>
+                                    <span class="font-semibold">5,160m (16,929ft)</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Trek Difficulty</span>
+                                    <span class="font-semibold">Challenging</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-100 pb-2">
+                                    <span class="text-slate-600">Accommodation</span>
+                                    <span class="font-semibold">Teahouses/Camping</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600">Best Seasons</span>
+                                    <span class="font-semibold">Spring, Autumn</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Itinerary Section -->
+                <section id="itinerary" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Detailed Itinerary (15 Days)</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Day 1 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 1: Arrival in Kathmandu (1,400m)</h3>
+                            <p class="text-slate-700 mb-3">Arrive at Tribhuvan International Airport, transfer to your hotel, and attend a trek briefing in the evening.</p>
+                        </div>
+                        
+                        <!-- Day 2 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 2: Drive to Soti Khola (710m)</h3>
+                            <p class="text-slate-700 mb-3">Drive 7-8 hours from Kathmandu to Soti Khola via Arughat, the trek’s starting point.</p>
+                        </div>
+                        
+                        <!-- Day 3 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 3: Trek to Machha Khola (870m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours along the Budhi Gandaki River through subtropical forests.</p>
+                        </div>
+                        
+                        <!-- Day 4 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 4: Trek to Jagat (1,340m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours through narrow trails and small villages to Jagat.</p>
+                        </div>
+                        
+                        <!-- Day 5 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 5: Trek to Deng (1,860m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours, entering the Manaslu Conservation Area with views of Shringi Himal.</p>
+                        </div>
+                        
+                        <!-- Day 6 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 6: Trek to Namrung (2,630m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours through forests and Tibetan-influenced villages.</p>
+                        </div>
+                        
+                        <!-- Day 7 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 7: Trek to Samagaon (3,520m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 6-7 hours to Samagaon, with stunning views of Manaslu.</p>
+                        </div>
+                        
+                        <!-- Day 8 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 8: Acclimatization Day in Samagaon</h3>
+                            <p class="text-slate-700 mb-3">Rest and explore Samagaon, with optional hikes to Manaslu Base Camp or a local monastery.</p>
+                        </div>
+                        
+                        <!-- Day 9 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 9: Trek to Samdo (3,860m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 4-5 hours to the remote village of Samdo near the Tibetan border.</p>
+                        </div>
+                        
+                        <!-- Day 10 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 10: Acclimatization Day in Samdo</h3>
+                            <p class="text-slate-700 mb-3">Rest and explore Samdo, with optional hikes to nearby viewpoints.</p>
+                        </div>
+                        
+                        <!-- Day 11 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 11: Trek to Dharmasala (4,480m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 4-5 hours to Dharmasala, preparing for the Larkya La Pass.</p>
+                        </div>
+                        
+                        <!-- Day 12 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 12: Trek to Bimthang (3,720m) via Larkya La Pass (5,160m)</h3>
+                            <p class="text-slate-700 mb-3">Cross the Larkya La Pass (8-9 hours) with panoramic views, descending to Bimthang.</p>
+                        </div>
+                        
+                        <!-- Day 13 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 13: Trek to Tilije (2,300m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 5-6 hours through forests and villages to Tilije.</p>
+                        </div>
+                        
+                        <!-- Day 14 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 14: Trek to Tal (1,700m)</h3>
+                            <p class="text-slate-700 mb-3">Trek 5-6 hours along the Dudh Khola to Tal.</p>
+                        </div>
+                        
+                        <!-- Day 15 -->
+                        <div class="itinerary-day bg-white p-6 rounded-xl shadow-md">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">Day 15: Drive to Kathmandu</h3>
+                            <p class="text-slate-700 mb-3">Drive 8-9 hours back to Kathmandu, with a farewell dinner in the evening.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Gallery Section -->
+                <section id="gallery" class="mb-16 section-anchor">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6">Photo Gallery</h2>
+                    
+                    <div class="gallery-grid">
+                        <img src="./images/manaslu/1.webp" 
+                             alt="Manaslu Circuit view" 
+                             class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" 
+                             onclick="openModal(this)"
+                             onerror="this.src='./images/manaslu.jpeg';">
+                        
+                        <img src="./images/manaslu/2.jpg"
+                             alt="Larkya La Pass" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/manaslu/3.webp"
+                             alt="Samagaon Village" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/manaslu/4.jpg"
+                             alt="Tsum Valley" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/manaslu/5.jpg"
+                             alt="Budhi Gandaki River" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                        
+                        <img src="./images/manaslu/6.jpg"
+                             alt="Manaslu Base Camp" class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="openModal(this)">
+                    </div>
+                    
+                    <!-- Modal for image gallery -->
+                    <div id="imageModal" class="modal">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <img class="modal-content" id="modalImage">
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column - Booking & Details -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-20">
+                    <div id="includes" class="bg-white rounded-xl shadow-xl p-6 mb-6 section-anchor">
+                        <div class="text-center mb-6">
+                            <span class="text-3xl font-bold text-green-700">Rs.1,90,000</span>
+                            <p class="text-slate-600">per person</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-2">Trip Includes</h3>
+                                <ul class="text-slate-600 space-y-1 text-sm">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Airport transfers and transport to/from Soti Khola</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>All accommodation during trek (teahouses/camping)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>All meals during trek (breakfast, lunch, dinner)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Experienced guide and porters (1 porter for every 2 trekkers)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-600 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Manaslu Restricted Area Permit, MCAP, and ACAP permits</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-2">Trip Excludes</h3>
+                                <ul class="text-slate-600 space-y-1 text-sm">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>International flights to and from Kathmandu</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Travel and medical insurance</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Personal expenses (e.g., drinks, snacks, laundry)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Tips for guides and porters</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-red-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Additional accommodation or meals in Kathmandu</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-all duration-300 mt-6">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript for Modal -->
+    <script>
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
