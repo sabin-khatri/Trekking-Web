@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Trekking Packages | Nepal Treks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-slate-50 text-slate-700 font-inter min-h-screen">
+  <!-- Navigation -->
+  <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <div class="flex-shrink-0">
+          <a href="index.html" class="text-3xl font-bold font-poppins text-green-800">Nepal<span class="text-green-600">Treks</span></a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <ul class="flex items-baseline space-x-8">
+            <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Home<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
+            <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">About<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
+            <li><a href="packages.html" class="text-green-600 font-bold relative">Packages<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600"></span></a></li>
+            <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
+            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 transform hover:scale-105">Contact Us</a></li>
+          </ul>
+          <button id="cartBtn" class="relative p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" aria-label="View cart">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            <span id="cartCount" class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+        <div class="md:hidden">
+          <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors" aria-label="Toggle menu">
+            <svg id="menuIcon" class="w-7 h-7 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+            <svg id="closeIcon" class="w-7 h-7 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md max-h-0 overflow-hidden transition-all duration-400 ease-in-out">
+      <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
+        <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Home</a>
+        <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">About</a>
+        <a href="packages.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200">Packages</a>
+        <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Gallery</a>
+        <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Contact</a>
+        <button id="mobileCartBtn" class="flex items-center px-3 py-2 text-slate-800 hover:bg-gray-200 rounded-md transition-colors" aria-label="View cart">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          <span>View Cart (<span id="mobileCartCount">0</span>)</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-cover bg-center bg-fixed h-[55vh] pt-20" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1920&q=80')">
+    <div class="bg-black/50 h-full flex items-center justify-center">
+      <div class="text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-extrabold font-poppins animate-slide-up">Our Trekking Packages</h1>
+        <p class="mt-4 text-lg md:text-xl max-w-2xl animate-slide-up animation-delay-200">Find Your Perfect Himalayan Journey</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Trekking Packages Section -->
+  <section class="py-20 lg:py-28 bg-white" id="treks">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold font-poppins text-green-800 animate-slide-up">Our Trekking Packages</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-slide-up animation-delay-200">Choose your next adventure from our most beloved trekking routes in the Himalayas.</p>
+      </div>
+      <!-- Search and Sort -->
+      <div class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-4">
+        <input type="text" id="searchInput" placeholder="Search treks by name, location, or duration..." class="flex-1 px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all" aria-label="Search treks" />
+        <select id="sortSelect" class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all" aria-label="Sort treks">
+          <option value="default">Sort by: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="duration-asc">Duration: Short to Long</option>
+          <option value="duration-desc">Duration: Long to Short</option>
+        </select>
+      </div>
+      <!-- Filter Buttons -->
+      <div id="filter-container" class="mt-12 flex justify-center flex-wrap gap-3 md:gap-4 animate-slide-up">
+        <button data-filter="all" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-white bg-green-800 transform scale-105 transition-all duration-300 active" aria-pressed="true">All Treks</button>
+        <button data-filter="moderate" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105" aria-pressed="false">Moderate</button>
+        <button data-filter="challenging" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105" aria-pressed="false">Challenging</button>
+      </div>
+      <!-- Trek Grid -->
+      <div id="trek-grid" class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+      <!-- Pagination -->
+      <div id="pagination" class="mt-12 flex justify-center gap-2"></div>
+    </div>
+  </section>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
+    <div class="bg-white rounded-xl p-6 max-w-lg w-full mx-4 animate-slide-up">
+      <div class="flex justify-between items-center">
+        <h3 class="text-2xl font-bold font-poppins text-slate-800">Your Cart</h3>
+        <button id="closeCart" class="text-slate-600 hover:text-slate-800" aria-label="Close cart">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="cartItems" class="mt-4 space-y-4"></div>
+      <div class="mt-6 flex justify-end">
+        <button id="clearCart" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all">Clear Cart</button>
+        <a id="proceedToBooking" href="#" class="ml-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">Proceed to Booking</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Modal for Messages -->
+  <div id="alertModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
+    <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4 animate-slide-up">
+      <h3 id="alertTitle" class="text-xl font-bold text-slate-800"></h3>
+      <p id="alertMessage" class="mt-2 text-slate-600"></p>
+      <div class="mt-4 flex justify-end">
+        <button id="closeAlert" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-1">
+        <h3 class="text-2xl font-bold font-poppins">Nepal<span class="text-green-400">Treks</span></h3>
+        <p class="mt-4 text-green-200">Crafting unforgettable Himalayan adventures since 2010.</p>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold text-green-300">Quick Links</h4>
+        <ul class="mt-4 space-y-2">
+          <li><a href="index.html" class="hover:text-green-400 transition-colors">Home</a></li>
+          <li><a href="about.html" class="hover:text-green-400 transition-colors">About Us</a></li>
+          <li><a href="packages.html" class="hover:text-green-400 transition-colors">Our Treks</a></li>
+          <li><a href="contact.html" class="hover:text-green-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold text-green-300">Contact</h4>
+        <ul class="mt-4 space-y-2 text-green-200">
+          <li class="flex items-start"><span class="mr-2 mt-1">✉</span> info@nepaltreks.com</li>
+          <li class="flex items-start"><span class="mr-2 mt-1">☎</span> +977 123 456789</li>
+          <li class="flex items-start"><span class="mr-2 mt-1">📍</span> Belbari, Morang, Nepal</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold text-green-300">Follow Us</h4>
+        <div class="mt-4 flex space-x-4">
+          <a href="#" class="text-green-200 hover:text-white transition-colors" aria-label="Facebook">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+          </a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors" aria-label="Instagram">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" clip-rule="evenodd" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-green-700 py-6 text-center text-green-300">
+      <p>© 2025 Nepal Treks. All Rights Reserved. Adventure Awaits.</p>
+    </div>
+  </footer>
+
+  <!-- Tailwind Config and Custom Animations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+          },
+          animation: {
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+            'hamburger-to-cross': 'hamburgerToCross 0.3s ease forwards',
+            'cross-to-hamburger': 'crossToHamburger 0.3s ease forwards',
+          },
+          keyframes: {
+            slideUp: {
+              'from': { opacity: '0', transform: 'translateY(30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            hamburgerToCross: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(45deg)' },
+            },
+            crossToHamburger: {
+              '0%': { transform: 'rotate(45deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- JavaScript for Interactivity -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Trek Data
+      const treks = [
+        {
+          name: 'Everest Base Camp',
+          category: 'challenging',
+          location: 'Khumbu Region',
+          duration: 14,
+          price: 185000,
+          description: 'Follow the footsteps of legends to the base of the world\'s highest peak through Sherpa villages and breathtaking landscapes.',
+          image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1740&q=80',
+          link: 'everest-base-camp.html?trek=Everest%20Base%20Camp',
+          featured: true,
+        },
+        {
+          name: 'Annapurna Circuit',
+          category: 'moderate',
+          location: 'Annapurna Region',
+          duration: 14,
+          price: 160000,
+          description: 'A classic trek offering diverse landscapes, from lush forests to arid high deserts, with spectacular mountain vistas.',
+          image: './images/annapurna.jpg',
+          link: 'annapurna.html?trek=Annapurna%20Circuit',
+          featured: true,
+        },
+        {
+          name: 'Langtang Valley',
+          category: 'moderate',
+          location: 'Langtang Region',
+          duration: 8,
+          price: 120000,
+          description: 'A peaceful, less-crowded trail with stunning views and rich Tamang culture, often called "the valley of glaciers".',
+          image: './images/langtang.webp',
+          link: 'langtang-valley.html?trek=Langtang%20Valley',
+          featured: true,
+        },
+        {
+          name: 'Gokyo Lakes Trek',
+          category: 'challenging',
+          location: 'Khumbu Region',
+          duration: 13,
+          price: 175000,
+          description: 'Discover emerald-green glacial lakes and panoramic views of four 8,000m peaks in this spectacular alternative to EBC.',
+          image: './images/Gokyo-Lake.webp',
+          link: 'gokyo-lakes.html?trek=Gokyo%20Lakes',
+          featured: false,
+        },
+        {
+          name: 'Manaslu Circuit',
+          category: 'challenging',
+          location: 'Manaslu Region',
+          duration: 16,
+          price: 190000,
+          description: 'A culturally rich trek around the world\'s eighth highest mountain with fewer crowds and pristine landscapes.',
+          image: './images/manaslu.jpeg',
+          link: 'manaslu-details.html?trek=Manaslu%20Circuit',
+          featured: false,
+        },
+        {
+          name: 'Poon Hill Trek',
+          category: 'moderate',
+          location: 'Annapurna Region',
+          duration: 5,
+          price: 85000,
+          description: 'A short trek perfect for breathtaking sunrise views over the Annapurna range, ideal for those with limited time.',
+          image: './images/Poon-Hill-trek-itinerary-Nepal.jpg.webp',
+          link: 'poon-hill-trek.html?trek=Poon%20Hill%20Trek',
+          featured: false,
+        },
+      ];
+
+      // Render Trek Cards
+      const trekGrid = document.getElementById('trek-grid');
+      const itemsPerPage = 6;
+      let currentPage = 1;
+      let filteredTreks = [...treks];
+
+      function renderTreks(treksToShow, page = 1) {
+        trekGrid.innerHTML = '';
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedTreks = treksToShow.slice(start, end);
+
+        if (paginatedTreks.length === 0) {
+          trekGrid.innerHTML = '<p class="col-span-full text-center text-slate-600">No treks found for this category.</p>';
+          return;
+        }
+
+        paginatedTreks.forEach((trek, index) => {
+          const card = document.createElement('div');
+          card.className = `trek-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-slide-up ${trek.featured ? 'border-2 border-green-600' : ''}`;
+          card.dataset.category = trek.category;
+          card.dataset.name = trek.name;
+          card.dataset.location = trek.location;
+          card.dataset.duration = trek.duration;
+          card.dataset.price = trek.price;
+          card.style.animationDelay = `${index * 80}ms`;
+          card.innerHTML = `
+            <div class="relative overflow-hidden">
+              <img src="${trek.image}" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-300" alt="${trek.name} Trek" loading="lazy" />
+              ${trek.featured ? '<span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded">Featured</span>' : ''}
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-start">
+                <h3 class="text-2xl font-bold font-poppins text-slate-800">${trek.name}</h3>
+                <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">${trek.duration} Days</span>
+              </div>
+              <div class="flex items-center mt-4 text-slate-600 text-sm">
+                <svg class="w-4 h-4 mr-1 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>
+                <span>${trek.location}, Nepal</span>
+              </div>
+              <p class="mt-4 text-slate-600">${trek.description}</p>
+              <div class="mt-6 flex items-center justify-between">
+                <span class="text-2xl font-bold font-poppins text-green-700">Rs.${trek.price.toLocaleString()}</span>
+                <div class="flex gap-2">
+                  <button class="add-to-cart text-green-700 hover:text-white hover:bg-green-700 font-medium px-3 py-1.5 text-sm rounded-lg transition-all duration-300 border border-green-700" data-name="${trek.name}" aria-label="Add ${trek.name} to cart">Add to Cart</button>
+                  <a href="${trek.link}" class="text-green-700 hover:text-white hover:bg-green-700 font-medium px-3 py-1.5 text-sm rounded-lg transition-all duration-300 border border-green-700">Details</a>
+                </div>
+              </div>
+            </div>
+          `;
+          trekGrid.appendChild(card);
+        });
+
+        renderPagination(treksToShow);
+      }
+
+      // Render Pagination
+      function renderPagination(treksToShow) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(treksToShow.length / itemsPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const button = document.createElement('button');
+          button.textContent = i;
+          button.className = `px-4 py-2 rounded-lg border border-gray-300 ${i === currentPage ? 'bg-green-600 text-white' : 'bg-white text-slate-700 hover:bg-green-600 hover:text-white'} transition-all duration-300`;
+          button.setAttribute('aria-label', `Go to page ${i}`);
+          button.addEventListener('click', () => {
+            currentPage = i;
+            renderTreks(treksToShow, i);
+            pagination.querySelectorAll('button').forEach(btn => btn.classList.remove('bg-green-600', 'text-white'));
+            button.classList.add('bg-green-600', 'text-white');
+          });
+          pagination.appendChild(button);
+        }
+      }
+
+      // Initial Render
+      renderTreks(treks);
+
+      // Mobile Menu Toggle
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      const closeIcon = document.getElementById('closeIcon');
+
+      function toggleMobileMenu() {
+        const isOpen = mobileMenu.classList.contains('max-h-[500px]');
+        mobileMenu.classList.toggle('max-h-[500px]', !isOpen);
+        mobileMenu.classList.toggle('max-h-0', isOpen);
+        menuIcon.classList.toggle('hidden', !isOpen);
+        closeIcon.classList.toggle('hidden', isOpen);
+        menuIcon.classList.toggle('animate-hamburger-to-cross', !isOpen);
+        menuIcon.classList.toggle('animate-cross-to-hamburger', isOpen);
+      }
+
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent click from bubbling to window
+        toggleMobileMenu();
+      });
+
+      // Close Mobile Menu on Link or Cart Button Click
+      const mobileNavLinks = document.querySelectorAll('#mobileMenu a, #mobileCartBtn');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          toggleMobileMenu();
+        });
+      });
+
+      // Close Mobile Menu on Outside Click
+      window.addEventListener('click', (event) => {
+        if (mobileMenu.classList.contains('max-h-[500px]') && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Trek Filtering
+      const filterContainer = document.getElementById('filter-container');
+      filterContainer.addEventListener('click', (event) => {
+        const target = event.target.closest('.filter-btn');
+        if (!target) return;
+
+        filterContainer.querySelector('.active').classList.remove('active', 'bg-green-800', 'text-white', 'scale-105');
+        target.classList.add('active', 'bg-green-800', 'text-white', 'scale-105');
+        target.setAttribute('aria-pressed', 'true');
+        filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+          if (btn !== target) btn.setAttribute('aria-pressed', 'false');
+        });
+
+        const filter = target.dataset.filter;
+        currentPage = 1;
+        filteredTreks = filter === 'all' ? [...treks] : treks.filter(trek => trek.category === filter);
+        renderTreks(filteredTreks);
+      });
+
+      // Search Functionality
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        currentPage = 1;
+        filteredTreks = treks.filter(trek => 
+          trek.name.toLowerCase().includes(searchTerm) ||
+          trek.location.toLowerCase().includes(searchTerm) ||
+          trek.duration.toString().includes(searchTerm)
+        );
+        renderTreks(filteredTreks);
+      });
+
+      // Sort Functionality
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.addEventListener('change', (e) => {
+        const sortValue = e.target.value;
+        currentPage = 1;
+        if (sortValue === 'price-asc') {
+          filteredTreks.sort((a, b) => a.price - b.price);
+        } else if (sortValue === 'price-desc') {
+          filteredTreks.sort((a, b) => b.price - b.price);
+        } else if (sortValue === 'duration-asc') {
+          filteredTreks.sort((a, b) => a.duration - b.duration);
+        } else if (sortValue === 'duration-desc') {
+          filteredTreks.sort((a, b) => b.duration - a.duration);
+        } else {
+          filteredTreks = [...treks];
+        }
+        renderTreks(filteredTreks);
+      });
+
+      // Cart Functionality
+      let cart = JSON.parse(localStorage.getItem('cart')) || null;
+      const cartBtn = document.getElementById('cartBtn');
+      const mobileCartBtn = document.getElementById('mobileCartBtn');
+      const cartModal = document.getElementById('cartModal');
+      const cartItems = document.getElementById('cartItems');
+      const cartCount = document.getElementById('cartCount');
+      const mobileCartCount = document.getElementById('mobileCartCount');
+      const closeCart = document.getElementById('closeCart');
+      const clearCart = document.getElementById('clearCart');
+      const proceedToBooking = document.getElementById('proceedToBooking');
+      const alertModal = document.getElementById('alertModal');
+      const alertTitle = document.getElementById('alertTitle');
+      const alertMessage = document.getElementById('alertMessage');
+      const closeAlert = document.getElementById('closeAlert');
+
+      function showAlert(title, message) {
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        alertModal.classList.remove('hidden');
+        alertModal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeAlertModal() {
+        alertModal.classList.add('hidden');
+        alertModal.setAttribute('aria-hidden', 'true');
+      }
+
+      function updateCart() {
+        cartCount.textContent = cart ? 1 : 0;
+        mobileCartCount.textContent = cart ? 1 : 0;
+        cartItems.innerHTML = cart ? `
+          <div class="flex justify-between items-center border-b border-gray-200 py-2">
+            <div>
+              <h4 class="text-lg font-semibold">${cart.name}</h4>
+              <p class="text-sm text-slate-600">Rs.${cart.price ? cart.price.toLocaleString() : 'N/A'}</p>
+            </div>
+            <button class="remove-from-cart text-red-600 hover:text-red-800" aria-label="Remove ${cart.name} from cart">Remove</button>
+          </div>
+        ` : '<p class="text-slate-600">Your cart is empty.</p>';
+        proceedToBooking.setAttribute('href', cart ? `booking.html?trek=${encodeURIComponent(cart.name)}` : '#');
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      trekGrid.addEventListener('click', (e) => {
+        const target = e.target.closest('.add-to-cart');
+        if (!target) return;
+        const trekName = target.dataset.name;
+        const trek = treks.find(t => t.name === trekName);
+        if (cart && cart.name !== trekName) {
+          showAlert('Cart Limit', 'Sorry, you can only book one package at a time.');
+          return;
+        }
+        cart = { name: trek.name, price: trek.price };
+        updateCart();
+        showAlert('Success', `Successfully added ${trek.name} to cart!`);
+      });
+
+      cartItems.addEventListener('click', (e) => {
+        const target = e.target.closest('.remove-from-cart');
+        if (!target) return;
+        cart = null;
+        updateCart();
+      });
+
+      cartBtn.addEventListener('click', () => {
+        cartModal.classList.remove('hidden');
+        cartModal.setAttribute('aria-hidden', 'false');
+      });
+
+      mobileCartBtn.addEventListener('click', () => {
+        cartModal.classList.remove('hidden');
+        cartModal.setAttribute('aria-hidden', 'false');
+      });
+
+      closeCart.addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+        cartModal.setAttribute('aria-hidden', 'true');
+      });
+
+      clearCart.addEventListener('click', () => {
+        cart = null;
+        updateCart();
+      });
+
+      closeAlert.addEventListener('click', closeAlertModal);
+
+      window.addEventListener('click', (event) => {
+        if (event.target === alertModal) {
+          closeAlertModal();
+        }
+        if (event.target === cartModal) {
+          cartModal.classList.add('hidden');
+          cartModal.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      updateCart();
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('shadow-md', 'bg-white');
+          navbar.classList.remove('bg-white/90');
+        } else {
+          navbar.classList.remove('shadow-md', 'bg-white');
+          navbar.classList.add('bg-white/90');
+        }
+      });
+
+      // Intersection Observer for Scroll Animations
+      const scrollElements = document.querySelectorAll('.animate-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      scrollElements.forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-600', 'ease-out');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
