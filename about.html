@@ -9,6 +9,71 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+              float: 'float 6s ease-in-out infinite',
+              shimmer: 'shimmer 4s infinite',
+              spin: 'spin 1s linear infinite',
+              pulse: 'pulse 4s ease-in-out infinite',
+              logoSpin: 'logoSpin 0.5s ease-in-out forwards',
+              textFocus: 'textFocus 2s ease-in-out infinite',
+              scaleIn: 'scaleIn 0.6s ease-out forwards',
+              slideInLeft: 'slideInLeft 0.8s ease-out forwards',
+              slideInRight: 'slideInRight 0.8s ease-out forwards'
+            },
+            keyframes: {
+              fadeInUp: {
+                from: { opacity: '0', transform: 'translateY(30px)' },
+                to: { opacity: '1', transform: 'translateY(0)' }
+              },
+              float: {
+                '0%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' },
+                '100%': { transform: 'translateY(0px)' }
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%) rotate(45deg)' },
+                '100%': { transform: 'translateX(100%) rotate(45deg)' }
+              },
+              spin: {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' }
+              },
+              pulse: {
+                '0%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.05)' },
+                '100%': { transform: 'scale(1)' }
+              },
+              logoSpin: {
+                '0%': { transform: 'rotate(0deg) scale(1)' },
+                '100%': { transform: 'rotate(15deg) scale(1.1)' }
+              },
+              textFocus: {
+                '0%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' },
+                '50%': { textShadow: '0 0 15px rgba(22, 101, 52, 0.7)' },
+                '100%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' }
+              },
+              scaleIn: {
+                from: { opacity: '0', transform: 'scale(0.95)' },
+                to: { opacity: '1', transform: 'scale(1)' }
+              },
+              slideInLeft: {
+                from: { opacity: '0', transform: 'translateX(-20px)' },
+                to: { opacity: '1', transform: 'translateX(0)' }
+              },
+              slideInRight: {
+                from: { opacity: '0', transform: 'translateX(20px)' },
+                to: { opacity: '1', transform: 'translateX(0)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -16,51 +81,14 @@
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Poppins', sans-serif;
       }
-
-      /* Enhanced Animations */
-      @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+      .navbar-scrolled {
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
-      @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+      .navbar-dark-section {
+        background-color: rgba(255, 255, 255, 1) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       }
-      @keyframes slideInLeft {
-        from { opacity: 0; transform: translateX(-20px); }
-        to { opacity: 1; transform: translateX(0); }
-      }
-      @keyframes slideInRight {
-        from { opacity: 0; transform: translateX(20px); }
-        to { opacity: 1; transform: translateX(0); }
-      }
-      @keyframes flip {
-        from { transform: perspective(1000px) rotateY(0deg); }
-        to { transform: perspective(1000px) rotateY(180deg); }
-      }
-      .fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-      }
-      .scale-in {
-        animation: scaleIn 0.6s ease-out forwards;
-      }
-      .slide-in-left {
-        animation: slideInLeft 0.8s ease-out forwards;
-      }
-      .slide-in-right {
-        animation: slideInRight 0.8s ease-out forwards;
-      }
-      .animate-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-      }
-      .is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Mobile Menu Animation */
       #mobileMenu {
         display: grid;
         grid-template-rows: 0fr;
@@ -72,8 +100,15 @@
       #mobileMenu > div {
         overflow: hidden;
       }
-
-      /* Team Card Flip Effect */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
       .team-card {
         perspective: 1000px;
       }
@@ -131,16 +166,12 @@
         text-align: center;
         padding: 2rem;
       }
-
-      /* Parallax Effect for Header and Gallery */
       .parallax-bg {
         background-attachment: fixed;
         background-size: cover;
         background-position: center;
         transition: background-position 0.3s ease-out;
       }
-
-      /* Timeline Styling */
       .timeline {
         position: relative;
         padding: 2rem 0;
@@ -211,8 +242,6 @@
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
       }
-
-      /* Gallery Styling */
       .gallery-item {
         position: relative;
         overflow: hidden;
@@ -241,8 +270,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-
-      /* Loading Animation */
       .loader {
         position: fixed;
         top: 0;
@@ -268,12 +295,6 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      /* Back to Top Button */
       .back-to-top {
         position: fixed;
         bottom: 20px;
@@ -295,8 +316,6 @@
         opacity: 1;
         visibility: visible;
       }
-
-      /* Book Now Button */
       .book-now {
         position: fixed;
         bottom: 80px;
@@ -314,8 +333,6 @@
         transform: scale(1.05);
         background-color: #15803d;
       }
-
-      /* Responsive Adjustments */
       @media (max-width: 768px) {
         .timeline::before {
           left: 20px;
@@ -339,7 +356,7 @@
       }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700">
+<body class="bg-slate-50 text-slate-700 pt-20">
     <!-- Loader -->
     <div class="loader">
       <div class="spinner"></div>
@@ -353,38 +370,60 @@
     <!-- Book Now Button -->
     <a href="contact.html" class="book-now" aria-label="Book now">Book Now</a>
 
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300 hover:shadow-md">
+    <!-- Navbar -->
+    <nav id="navbar" class="bg-white/95 backdrop-blur-lg fixed top-0 w-full z-30 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-          <div class="flex-shrink-0">
-            <a href="index.html" class="text-3xl font-bold text-green-800 hover:scale-105 transition-transform duration-300">Nepal<span class="text-green-600">Treks</span></a>
+        <div class="flex justify-between items-center h-16">
+          <div class="flex-shrink-0 flex items-center">
+            <a href="index.html" class="group hover:scale-105 transition-transform duration-300">
+              <div class="flex items-center">
+                <img 
+                  src="./images/logo.png" 
+                  alt="Nepal Treks Logo" 
+                  class="h-12 w-12 rounded-full object-cover bg-white/90 p-1 group-hover:animate-logoSpin"
+                />
+                <span class="ml-2 text-2xl font-extrabold text-green-800 tracking-tight animate-textFocus">NepalTreks</span>
+              </div>
+            </a>
           </div>
-          <div class="hidden md:block">
-            <ul class="ml-10 flex items-baseline space-x-8">
-              <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Home<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-              <li><a href="about.html" class="text-green-600 font-bold relative group">About<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600"></span></a></li>
-              <li><a href="packages.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Packages<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-              <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-               <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 transform hover:scale-105">Contact Us</a></li>
-            </ul>
+          <div class="hidden md:flex items-center space-x-6">
+            <a href="index.html" class="text-slate-800 font-semibold relative group px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">
+              Home
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a href="about.html" class="text-green-600 font-semibold relative group px-3 py-2 rounded-md hover:bg-green-50 transition-all duration-300">
+              About
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-100 group-hover:scale-x-0 transition-transform duration-300 origin-right"></span>
+            </a>
+            <a href="packages.html" class="text-slate-800 font-semibold relative group px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">
+              Packages
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a href="gallery.html" class="text-slate-800 font-semibold relative group px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">
+              Gallery
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full font-semibold shadow-md hover:from-green-700 hover:to-green-900 hover:scale-105 transition-all duration-300">Contact Us</a>
           </div>
-          <div class="md:hidden">
-            <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors" aria-label="Toggle menu">
-              <svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
-              <svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <div class="md:hidden flex items-center">
+            <button id="menuBtn" class="text-slate-800 p-2 rounded-md hover:bg-green-50 focus:outline-none transition-all duration-300" aria-label="Toggle menu">
+              <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+              </svg>
+              <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
             </button>
           </div>
         </div>
       </div>
-      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
-        <div>
-          <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
-            <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200 scale-in">Home</a>
-            <a href="about.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200 scale-in">About</a>
-            <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200 scale-in">Packages</a>
-            <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200 scale-in">Gallery</a>
-            <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200 scale-in">Contact</a>
-          </div>
+      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-lg shadow-sm">
+        <div class="px-4 pt-2 pb-4 space-y-2">
+          <a href="index.html" class="block text-slate-800 font-semibold px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">Home</a>
+          <a href="about.html" class="block text-green-600 font-semibold px-3 py-2 rounded-md hover:bg-green-50 transition-all duration-300">About</a>
+          <a href="packages.html" class="block text-slate-800 font-semibold px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">Packages</a>
+          <a href="gallery.html" class="block text-slate-800 font-semibold px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">Gallery</a>
+          <a href="contact.html" class="block text-slate-800 font-semibold px-3 py-2 rounded-md hover:bg-green-50 hover:text-green-600 transition-all duration-300">Contact</a>
         </div>
       </div>
     </nav>
@@ -567,7 +606,7 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="bg-gradient-to-br from-green-700 to-green-800">
+    <section id="call-to-action" class="bg-gradient-to-br from-green-700 to-green-800">
       <div class="max-w-4xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-extrabold text-white sm:text-4xl animate-on-scroll fade-in-up">
           <span class="block">Ready for your adventure?</span>
@@ -642,6 +681,31 @@
           mobileMenu.classList.toggle("open", !isOpen);
           menuIcon.classList.toggle("hidden", !isOpen);
           closeIcon.classList.toggle("hidden", isOpen);
+        });
+
+        // Navbar scroll effect with visibility over dark sections
+        const navbar = document.getElementById("navbar");
+        const callToActionSection = document.getElementById("call-to-action");
+
+        window.addEventListener("scroll", () => {
+          const scrollPosition = window.scrollY;
+          const callToActionRect = callToActionSection.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          const isInCallToAction = callToActionRect.top <= windowHeight && callToActionRect.bottom >= 0;
+
+          if (scrollPosition > 50) {
+            navbar.classList.add("navbar-scrolled");
+            navbar.classList.remove("bg-white/95");
+          } else {
+            navbar.classList.remove("navbar-scrolled");
+            navbar.classList.add("bg-white/95");
+          }
+
+          if (isInCallToAction) {
+            navbar.classList.add("navbar-dark-section");
+          } else {
+            navbar.classList.remove("navbar-dark-section");
+          }
         });
 
         // Scroll Animation using Intersection Observer
