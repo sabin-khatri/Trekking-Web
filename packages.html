@@ -19,6 +19,7 @@
             pulse: 'pulse 1.5s ease-in-out infinite',
             bounceIn: 'bounceIn 0.8s ease-out forwards',
             float: 'float 3s ease-in-out infinite',
+            scaleIn: 'scaleIn 0.3s ease-out forwards',
           },
           keyframes: {
             logoSpin: {
@@ -43,6 +44,10 @@
             float: {
               '0%, 100%': { transform: 'translateY(0)' },
               '50%': { transform: 'translateY(-10px)' }
+            },
+            scaleIn: {
+              '0%': { transform: 'scale(0.95)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           }
         }
@@ -114,8 +119,10 @@
     .card-image-wrapper::after {
       content: attr(data-difficulty);
       position: absolute;
-     
-      padding: 1.5rem 1rem;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
       color: white;
       font-weight: 600;
@@ -132,6 +139,13 @@
       color: white !important;
       transform: scale(1.05) !important;
       box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3);
+    }
+    .cart-badge {
+      transition: all 0.3s ease-in-out;
+    }
+    .cart-badge.active {
+      background: linear-gradient(45deg, #16a34a, #22c55e);
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -179,12 +193,21 @@
               Gallery
               <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a></li>
-            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              Contact Us
+            <li><a href="contact.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              Contact
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
             </a></li>
           </ul>
+          <button id="cartBtn" class="relative text-slate-800 hover:text-green-600 transition-all duration-300 animate-on-scroll bounceIn" aria-label="View cart">
+            <i class="fas fa-shopping-cart text-lg"></i>
+            <span id="cartCount" class="cart-badge absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-gray-200 text-xs font-semibold text-slate-800 rounded-full">0</span>
+          </button>
         </div>
-        <div class="md:hidden">
+        <div class="md:hidden flex items-center space-x-4">
+          <button id="cartBtnMobile" class="relative text-slate-800 hover:text-green-600 transition-all duration-300 animate-on-scroll bounceIn" aria-label="View cart">
+            <i class="fas fa-shopping-cart text-lg"></i>
+            <span id="cartCountMobile" class="cart-badge absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-gray-200 text-xs font-semibold text-slate-800 rounded-full">0</span>
+          </button>
           <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-all duration-300 hover:shadow-xl" aria-label="Toggle menu">
             <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
@@ -216,7 +239,7 @@
     </div>
     <div class="absolute inset-0 bg-black/60"></div>
     <div class="relative z-10 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold animate-on-scroll bounceIn">Our Trekking Packages</h1>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold animate-on-scroll bounceIn gradient-text">Our Trekking Packages</h1>
       <p class="mt-4 text-base sm:text-lg md:text-xl max-w-2xl mx-auto animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Find Your Perfect Himalayan Journey</p>
       <div class="mt-6 sm:mt-8 animate-on-scroll bounceIn" style="animation-delay: 0.4s;">
         <a href="#treks" class="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl">
@@ -317,7 +340,7 @@
 
   <!-- Cart Modal -->
   <div id="cartModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-lg w-full mx-4 animate-on-scroll fadeInUp">
+    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-lg w-full mx-4 animate-on-scroll scaleIn">
       <div class="flex justify-between items-center">
         <h3 class="text-xl sm:text-2xl font-bold text-slate-800">
           <i class="fas fa-shopping-cart mr-2 text-green-600"></i>Your Cart
@@ -326,7 +349,7 @@
           <i class="fas fa-times text-lg"></i>
         </button>
       </div>
-      <div id="cartItems" class="mt-4 space-y-4 max-h-60 overflow-y-auto"></div>
+      <div id="cartItems" class="mt-4 space-y-4 max-h-60 overflow-y-auto scrollbar-hide"></div>
       <div class="mt-6 flex justify-between items-center">
         <div>
           <p class="text-base sm:text-lg font-semibold text-slate-800">Total: <span id="cartTotal" class="text-green-600">Rs.0</span></p>
@@ -345,7 +368,7 @@
 
   <!-- Alert Modal for Messages -->
   <div id="alertModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-md w-full mx-4 animate-on-scroll fadeInUp">
+    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-md w-full mx-4 animate-on-scroll scaleIn">
       <div class="text-center">
         <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-on-scroll scaleIn">
           <i id="alertIcon" class="fas fa-check text-xl text-green-600"></i>
@@ -529,7 +552,7 @@
           } else if (currentSort === 'duration-asc') {
             filtered.sort((a, b) => a.duration - b.duration);
           } else if (currentSort === 'duration-desc') {
-            filtered.sort((a, b) => b.duration - b.duration);
+            filtered.sort((a, b) => b.duration - a.duration);
           }
           
           filteredTreks = filtered;
@@ -560,7 +583,7 @@
 
           paginatedTreks.forEach((trek, index) => {
             const card = document.createElement('div');
-            card.className = `trek-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl animate-on-scroll bounceIn ${trek.featured ? 'border-2 border-green-600' : ''}`;
+            card.className = `trek-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-xl animate-on-scroll bounceIn ${trek.featured ? 'border-2 border-green-600' : ''}`;
             card.style.animationDelay = `${index * 100}ms`;
             card.innerHTML = `
               <div class="card-image-wrapper relative overflow-hidden rounded-t-xl group" data-difficulty="${trek.category}">
@@ -623,7 +646,7 @@
         if (currentPage > 1) {
           const prevButton = document.createElement('button');
           prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
-          prevButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm';
+          prevButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm animate-on-scroll bounceIn';
           prevButton.addEventListener('click', () => {
             currentPage--;
             renderTreks();
@@ -635,7 +658,8 @@
         for (let i = 1; i <= totalPages; i++) {
           const button = document.createElement('button');
           button.textContent = i;
-          button.className = `px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm ${i === currentPage ? 'bg-green-600 text-white scale-110' : 'bg-white text-slate-700 hover:bg-green-600 hover:text-white'}`;
+          button.className = `px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm animate-on-scroll bounceIn ${i === currentPage ? 'bg-green-600 text-white scale-110' : 'bg-white text-slate-700 hover:bg-green-600 hover:text-white'}`;
+          button.style.animationDelay = `${(i - 1) * 100}ms`;
           button.addEventListener('click', () => {
             currentPage = i;
             renderTreks();
@@ -648,7 +672,7 @@
         if (currentPage < totalPages) {
           const nextButton = document.createElement('button');
           nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
-          nextButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm';
+          nextButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm animate-on-scroll bounceIn';
           nextButton.addEventListener('click', () => {
             currentPage++;
             renderTreks();
@@ -730,51 +754,15 @@
         });
       });
 
-      // Trek Filtering
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // Remove active class from all buttons
-          filterButtons.forEach(btn => {
-            btn.classList.remove('active', 'bg-green-800', 'text-white', 'scale-105');
-            btn.classList.add('text-green-800', 'hover:bg-green-800', 'hover:text-white');
-          });
-          
-          // Add active class to clicked button
-          button.classList.add('active', 'bg-green-800', 'text-white', 'scale-105');
-          button.classList.remove('text-green-800', 'hover:bg-green-800', 'hover:text-white');
-          
-          currentFilter = button.dataset.filter;
-          currentPage = 1;
-          renderTreks();
-        });
-      });
-
-      // Search Functionality with Debounce
-      let searchTimeout;
-      const searchInput = document.getElementById('searchInput');
-      searchInput.addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          currentSearch = e.target.value;
-          currentPage = 1;
-          renderTreks();
-        }, 300);
-      });
-
-      // Sort Functionality
-      const sortSelect = document.getElementById('sortSelect');
-      sortSelect.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        currentPage = 1;
-        renderTreks();
-      });
-
       // Cart Functionality
       let cart = JSON.parse(localStorage.getItem('cart')) || null;
       const cartModal = document.getElementById('cartModal');
       const cartItems = document.getElementById('cartItems');
       const cartTotal = document.getElementById('cartTotal');
+      const cartBtn = document.getElementById('cartBtn');
+      const cartBtnMobile = document.getElementById('cartBtnMobile');
+      const cartCount = document.getElementById('cartCount');
+      const cartCountMobile = document.getElementById('cartCountMobile');
       const closeCart = document.getElementById('closeCart');
       const clearCart = document.getElementById('clearCart');
       const proceedToBooking = document.getElementById('proceedToBooking');
@@ -784,25 +772,12 @@
       const alertIcon = document.getElementById('alertIcon');
       const closeAlert = document.getElementById('closeAlert');
 
-      function showAlert(title, message, type = 'success') {
-        alertTitle.textContent = title;
-        alertMessage.textContent = message;
-        if (type === 'error') {
-          alertIcon.className = 'fas fa-exclamation-triangle text-xl text-red-600';
-        } else {
-          alertIcon.className = 'fas fa-check text-xl text-green-600';
-        }
-        alertModal.classList.remove('hidden');
-        alertModal.setAttribute('aria-hidden', 'false');
-      }
-
-      function closeAlertModal() {
-        alertModal.classList.add('hidden');
-        alertModal.setAttribute('aria-hidden', 'true');
-      }
-
       function updateCart() {
         const cartCountValue = cart ? 1 : 0;
+        cartCount.textContent = cartCountValue;
+        cartCountMobile.textContent = cartCountValue;
+        cartCount.classList.toggle('active', cartCountValue > 0);
+        cartCountMobile.classList.toggle('active', cartCountValue > 0);
         cartTotal.textContent = cart ? `Rs.${cart.price.toLocaleString()}` : 'Rs.0';
         
         cartItems.innerHTML = cart ? `
@@ -827,6 +802,23 @@
         localStorage.setItem('cart', JSON.stringify(cart));
       }
 
+      function showAlert(title, message, type = 'success') {
+        alertTitle.textContent = title;
+        alertMessage.textContent = message;
+        if (type === 'error') {
+          alertIcon.className = 'fas fa-exclamation-triangle text-xl text-red-600';
+        } else {
+          alertIcon.className = 'fas fa-check text-xl text-green-600';
+        }
+        alertModal.classList.remove('hidden');
+        alertModal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeAlertModal() {
+        alertModal.classList.add('hidden');
+        alertModal.setAttribute('aria-hidden', 'true');
+      }
+
       // Add to cart functionality
       document.addEventListener('click', (e) => {
         if (e.target.closest('.add-to-cart')) {
@@ -841,10 +833,16 @@
           
           cart = { name: trek.name, price: trek.price };
           updateCart();
-          showAlert('Added to Cart!', `Successfully added ${trek.name} to your cart. Ready for adventure?`);
+          showAlert('Added to Cart!', `Successfully added ${trek.name} to your cart. Click the cart icon to view.`);
+        }
+      });
+
+      // Cart button functionality
+      [cartBtn, cartBtnMobile].forEach(btn => {
+        btn.addEventListener('click', () => {
           cartModal.classList.remove('hidden');
           cartModal.setAttribute('aria-hidden', 'false');
-        }
+        });
       });
 
       // Remove from cart functionality
@@ -877,6 +875,57 @@
           cartModal.classList.add('hidden');
           cartModal.setAttribute('aria-hidden', 'true');
         }
+      });
+
+      // Keyboard navigation for modals
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          if (!cartModal.classList.contains('hidden')) {
+            cartModal.classList.add('hidden');
+            cartModal.setAttribute('aria-hidden', 'true');
+          }
+          if (!alertModal.classList.contains('hidden')) {
+            closeAlertModal();
+          }
+        }
+      });
+
+      // Trek Filtering
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-green-800', 'text-white', 'scale-105');
+            btn.classList.add('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+          });
+          
+          button.classList.add('active', 'bg-green-800', 'text-white', 'scale-105');
+          button.classList.remove('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+          
+          currentFilter = button.dataset.filter;
+          currentPage = 1;
+          renderTreks();
+        });
+      });
+
+      // Search Functionality with Debounce
+      let searchTimeout;
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          currentSearch = e.target.value;
+          currentPage = 1;
+          renderTreks();
+        }, 300);
+      });
+
+      // Sort Functionality
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        currentPage = 1;
+        renderTreks();
       });
 
       updateCart();
