@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -6,75 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Trekking Packages | Nepal Treks</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            logoSpin: 'logoSpin 0.5s ease-in-out forwards',
+            textFocus: 'textFocus 2s ease-in-out infinite',
+            pulse: 'pulse 1.5s ease-in-out infinite',
+            bounceIn: 'bounceIn 0.8s ease-out forwards',
+            float: 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            logoSpin: {
+              '0%': { transform: 'rotate(0deg) scale(1)' },
+              '100%': { transform: 'rotate(15deg) scale(1.1)' }
+            },
+            textFocus: {
+              '0%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' },
+              '50%': { textShadow: '0 0 15px rgba(22, 101, 52, 0.7)' },
+              '100%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' }
+            },
+            pulse: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.2)', opacity: '0.8' }
+            },
+            bounceIn: {
+              '0%': { transform: 'scale(0.3)', opacity: '0' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.7' },
+              '70%': { transform: 'scale(0.95)', opacity: '1' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [id="mobileMenu"] {
+      transition: max-height 0.4s ease-in-out;
+      max-height: 0;
+      overflow: hidden;
+    }
+    [id="mobileMenu"].open {
+      max-height: 96rem;
+    }
+    .navbar-scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-dark-section {
+      background-color: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #16a34a, #22c55e, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-container:hover {
+      box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3);
+    }
+    .logo-container:hover img {
+      animation: logoSpin 1s ease-in-out;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes bounceIn {
+      from { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 0.7; }
+      70% { transform: scale(0.95); opacity: 1; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .card-image-wrapper::after {
+      content: attr(data-difficulty);
+      position: absolute;
+     
+      padding: 1.5rem 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease-in-out;
+    }
+    .group:hover .card-image-wrapper::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .filter-btn.active {
+      background-color: #166534 !important;
+      color: white !important;
+      transform: scale(1.05) !important;
+      box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3);
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-700 font-inter min-h-screen">
+<body class="bg-slate-50 text-slate-700 font-['Inter'] [&_h1]:font-['Poppins'] [&_h2]:font-['Poppins'] [&_h3]:font-['Poppins'] [&_h4]:font-['Poppins'] [&_h5]:font-['Poppins'] [&_h6]:font-['Poppins'] pt-0 m-0">
+  <!-- Loader -->
+  <div class="loader fixed inset-0 bg-white flex items-center justify-center z-[9999] transition-opacity duration-500">
+    <div class="spinner w-[50px] h-[50px] border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top fixed bottom-5 right-5 bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 z-[1000]" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Book Now Button -->
+  <a href="contact.html" class="book-now fixed bottom-20 right-5 bg-green-600 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 hover:bg-green-800 transition-all duration-300 z-[1000] animate-float" aria-label="Book now">Book Now</a>
+
   <!-- Navigation -->
   <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
-        <div class="flex-shrink-0">
-          <a href="index.html" class="text-3xl font-bold font-poppins text-green-800">Nepal<span class="text-green-600">Treks</span></a>
+        <div class="flex-shrink-0 flex items-center">
+          <a href="index.html" class="group hover-lift logo-container rounded-full">
+            <div class="flex items-center">
+              <img src="./images/logo.png" alt="Nepal Treks Logo" class="h-10 w-10 rounded-full object-cover bg-white/90 p-1 group-hover:animate-logo-spin" />
+              <span class="ml-2 text-xl font-bold font-['Poppins'] bg-gradient-to-r from-green-600 via-green-500 to-green-400 text-transparent bg-clip-text animate-pulse-slow">NepalTreks</span>
+            </div>
+          </a>
         </div>
-        <div class="hidden md:flex items-center space-x-8">
-          <ul class="flex items-baseline space-x-8">
-            <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Home<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
-            <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">About<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
-            <li><a href="packages.html" class="text-green-600 font-bold relative">Packages<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r bg-green-600"></span></a></li>
-            <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span></a></li>
-            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 transform hover:scale-105">Contact Us</a></li>
+        <div class="hidden md:flex items-center space-x-6">
+          <ul class="flex items-baseline space-x-6">
+            <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              Home
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              About
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="packages.html" class="text-green-600 font-bold relative">
+              Packages
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600"></span>
+            </a></li>
+            <li><a href="gallery.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              Gallery
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              Contact Us
+            </a></li>
           </ul>
-          <button id="cartBtn" class="relative p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" aria-label="View cart">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-            <span id="cartCount" class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-          </button>
         </div>
         <div class="md:hidden">
-          <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors" aria-label="Toggle menu">
-            <svg id="menuIcon" class="w-7 h-7 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
-            <svg id="closeIcon" class="w-7 h-7 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-all duration-300 hover:shadow-xl" aria-label="Toggle menu">
+            <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <svg id="closeIcon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
           </button>
         </div>
       </div>
     </div>
-    <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md max-h-0 overflow-hidden transition-all duration-400 ease-in-out">
+    <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
       <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
-        <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Home</a>
-        <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">About</a>
-        <a href="packages.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200">Packages</a>
-        <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Gallery</a>
-        <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Contact</a>
-        <button id="mobileCartBtn" class="flex items-center px-3 py-2 text-slate-800 hover:bg-gray-200 rounded-md transition-colors" aria-label="View cart">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-          <span>View Cart (<span id="mobileCartCount">0</span>)</span>
-        </button>
+        <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Home</a>
+        <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">About</a>
+        <a href="packages.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Packages</a>
+        <a href="gallery.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Gallery</a>
+        <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Contact</a>
       </div>
     </div>
   </nav>
 
   <!-- Header -->
-  <header class="bg-cover bg-center bg-fixed h-[55vh] pt-20" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1920&q=80')">
-    <div class="bg-black/50 h-full flex items-center justify-center">
-      <div class="text-center text-white px-4">
-        <h1 class="text-4xl md:text-6xl font-extrabold font-poppins animate-slide-up">Our Trekking Packages</h1>
-        <p class="mt-4 text-lg md:text-xl max-w-2xl animate-slide-up animation-delay-200">Find Your Perfect Himalayan Journey</p>
+  <header id="top" class="relative h-[60vh] flex items-center justify-center text-center text-white bg-[url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center">
+    <div class="hero-video-wrapper absolute inset-0 w-full h-full overflow-hidden -z-10">
+      <video playsinline autoplay muted loop class="hero-video w-full h-full object-cover">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-beautiful-shot-of-a-himalayan-mountain-4264-large.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative z-10 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold animate-on-scroll bounceIn">Our Trekking Packages</h1>
+      <p class="mt-4 text-base sm:text-lg md:text-xl max-w-2xl mx-auto animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Find Your Perfect Himalayan Journey</p>
+      <div class="mt-6 sm:mt-8 animate-on-scroll bounceIn" style="animation-delay: 0.4s;">
+        <a href="#treks" class="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <i class="fas fa-mountain mr-2"></i>Explore Adventures
+        </a>
       </div>
     </div>
   </header>
 
   <!-- Trekking Packages Section -->
-  <section class="py-20 lg:py-28 bg-white" id="treks">
+  <section class="py-16 sm:py-20 lg:py-28 bg-white" id="treks">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-3xl md:text-4xl font-extrabold font-poppins text-green-800 animate-slide-up">Our Trekking Packages</h2>
-        <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-slide-up animation-delay-200">Choose your next adventure from our most beloved trekking routes in the Himalayas.</p>
+      <div class="text-center animate-on-scroll bounceIn">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-800">Our Trekking Packages</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Choose your next adventure from our most beloved trekking routes in the Himalayas.</p>
       </div>
+
       <!-- Search and Sort -->
-      <div class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-4">
-        <input type="text" id="searchInput" placeholder="Search treks by name, location, or duration..." class="flex-1 px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all" aria-label="Search treks" />
-        <select id="sortSelect" class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all" aria-label="Sort treks">
+      <div class="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4 animate-on-scroll fadeInUp" style="animation-delay: 0.3s;">
+        <div class="relative flex-1">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+          <input type="text" id="searchInput" placeholder="Search treks by name, location, or duration..." 
+                 class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all duration-300 hover:shadow-xl" 
+                 aria-label="Search treks" />
+        </div>
+        <select id="sortSelect" class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 focus:ring-2 focus:ring-green-600 focus:outline-none transition-all duration-300 hover:shadow-xl" aria-label="Sort treks">
           <option value="default">Sort by: Default</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
@@ -82,43 +250,113 @@
           <option value="duration-desc">Duration: Long to Short</option>
         </select>
       </div>
+
       <!-- Filter Buttons -->
-      <div id="filter-container" class="mt-12 flex justify-center flex-wrap gap-3 md:gap-4 animate-slide-up">
-        <button data-filter="all" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-white bg-green-800 transform scale-105 transition-all duration-300 active" aria-pressed="true">All Treks</button>
-        <button data-filter="moderate" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105" aria-pressed="false">Moderate</button>
-        <button data-filter="challenging" class="filter-btn font-semibold px-5 py-2.5 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105" aria-pressed="false">Challenging</button>
+      <div id="filter-container" class="mt-8 sm:mt-12 flex justify-center flex-wrap gap-2 sm:gap-3 md:gap-4 animate-on-scroll fadeInUp" style="animation-delay: 0.4s;">
+        <button data-filter="all" class="filter-btn active font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-white bg-green-800 transform scale-105 transition-all duration-300 hover:shadow-xl" aria-pressed="true">
+          <i class="fas fa-layer-group mr-2"></i>All Treks
+        </button>
+        <button data-filter="moderate" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          <i class="fas fa-hiking mr-2"></i>Moderate
+        </button>
+        <button data-filter="challenging" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          <i class="fas fa-mountain mr-2"></i>Challenging
+        </button>
       </div>
+
+      <!-- Results Counter -->
+      <div id="resultsCounter" class="mt-6 text-center text-slate-600 animate-on-scroll fadeInUp" style="animation-delay: 0.5s;">
+        Showing <span id="trekCount" class="font-semibold text-green-600">6</span> trekking packages
+      </div>
+
       <!-- Trek Grid -->
-      <div id="trek-grid" class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+      <div id="trek-grid" class="mt-8 grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+
+      <!-- Loading Spinner -->
+      <div id="loadingSpinner" class="hidden mt-8 flex justify-center">
+        <div class="spinner w-[50px] h-[50px] border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+
       <!-- Pagination -->
-      <div id="pagination" class="mt-12 flex justify-center gap-2"></div>
+      <div id="pagination" class="mt-10 sm:mt-12 flex justify-center gap-2 animate-on-scroll fadeInUp" style="animation-delay: 0.6s;"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 sm:py-20 bg-gradient-to-br from-green-50 to-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center animate-on-scroll bounceIn">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-800">Why Choose Nepal Treks?</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Experience the Himalayas with confidence and comfort</p>
+      </div>
+      <div class="mt-12 sm:mt-16 grid md:grid-cols-3 gap-6 sm:gap-8">
+        <div class="text-center p-6 rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl animate-on-scroll fadeInUp" style="animation-delay: 0.3s;">
+          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-on-scroll scaleIn">
+            <i class="fas fa-shield-alt text-xl text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800">Safety First</h3>
+          <p class="mt-2 text-sm sm:text-base text-slate-600">Certified guides, emergency protocols, and comprehensive insurance for your peace of mind.</p>
+        </div>
+        <div class="text-center p-6 rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl animate-on-scroll fadeInUp" style="animation-delay: 0.4s;">
+          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-on-scroll scaleIn">
+            <i class="fas fa-award text-xl text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800">Expert Guides</h3>
+          <p class="mt-2 text-sm sm:text-base text-slate-600">Local guides with 10+ years experience and deep knowledge of Himalayan terrain.</p>
+        </div>
+        <div class="text-center p-6 rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl animate-on-scroll fadeInUp" style="animation-delay: 0.5s;">
+          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-on-scroll scaleIn">
+            <i class="fas fa-heart text-xl text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800">Sustainable Tourism</h3>
+          <p class="mt-2 text-sm sm:text-base text-slate-600">Eco-friendly practices supporting local communities and preserving natural beauty.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Cart Modal -->
   <div id="cartModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-    <div class="bg-white rounded-xl p-6 max-w-lg w-full mx-4 animate-slide-up">
+    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-lg w-full mx-4 animate-on-scroll fadeInUp">
       <div class="flex justify-between items-center">
-        <h3 class="text-2xl font-bold font-poppins text-slate-800">Your Cart</h3>
-        <button id="closeCart" class="text-slate-600 hover:text-slate-800" aria-label="Close cart">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-800">
+          <i class="fas fa-shopping-cart mr-2 text-green-600"></i>Your Cart
+        </h3>
+        <button id="closeCart" class="text-slate-600 hover:text-slate-800 transition-colors duration-300" aria-label="Close cart">
+          <i class="fas fa-times text-lg"></i>
         </button>
       </div>
-      <div id="cartItems" class="mt-4 space-y-4"></div>
-      <div class="mt-6 flex justify-end">
-        <button id="clearCart" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all">Clear Cart</button>
-        <a id="proceedToBooking" href="" class="ml-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">Proceed to Booking</a>
+      <div id="cartItems" class="mt-4 space-y-4 max-h-60 overflow-y-auto"></div>
+      <div class="mt-6 flex justify-between items-center">
+        <div>
+          <p class="text-base sm:text-lg font-semibold text-slate-800">Total: <span id="cartTotal" class="text-green-600">Rs.0</span></p>
+        </div>
+        <div class="flex gap-2">
+          <button id="clearCart" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
+            <i class="fas fa-trash mr-1 sm:mr-2"></i>Clear Cart
+          </button>
+          <a id="proceedToBooking" href="#" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
+            <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Book Now
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Alert Modal for Messages -->
   <div id="alertModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-    <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4 animate-slide-up">
-      <h3 id="alertTitle" class="text-xl font-bold text-slate-800"></h3>
-      <p id="alertMessage" class="mt-2 text-slate-600"></p>
-      <div class="mt-4 flex justify-end">
-        <button id="closeAlert" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">OK</button>
+    <div class="bg-white rounded-xl p-5 sm:p-6 max-w-md w-full mx-4 animate-on-scroll fadeInUp">
+      <div class="text-center">
+        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-on-scroll scaleIn">
+          <i id="alertIcon" class="fas fa-check text-xl text-green-600"></i>
+        </div>
+        <h3 id="alertTitle" class="text-lg font-bold text-slate-800"></h3>
+        <p id="alertMessage" class="mt-2 text-sm sm:text-base text-slate-600"></p>
+      </div>
+      <div class="mt-6 flex justify-center">
+        <button id="closeAlert" class="px-4 sm:px-6 py-1.5 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
+          Continue Exploring
+        </button>
       </div>
     </div>
   </div>
@@ -126,80 +364,58 @@
   <!-- Footer -->
   <footer class="bg-green-800 text-white">
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="col-span-1 md:col-span-1">
-        <h3 class="text-2xl font-bold font-poppins">Nepal<span class="text-green-400">Treks</span></h3>
+      <div class="col-span-1 md:col-span-1 animate-on-scroll fadeInUp">
+        <h3 class="text-2xl font-bold">Nepal<span class="text-green-400">Treks</span></h3>
         <p class="mt-4 text-green-200">Crafting unforgettable Himalayan adventures since 2010.</p>
       </div>
-      <div>
+      <div class="animate-on-scroll slideInLeft" style="animation-delay: 0.1s;">
         <h4 class="text-lg font-semibold text-green-300">Quick Links</h4>
         <ul class="mt-4 space-y-2">
-          <li><a href="index.html" class="hover:text-green-400 transition-colors">Home</a></li>
-          <li><a href="about.html" class="hover:text-green-400 transition-colors">About Us</a></li>
-          <li><a href="packages.html" class="hover:text-green-400 transition-colors">Our Treks</a></li>
-          <li><a href="contact.html" class="hover:text-green-400 transition-colors">Contact</a></li>
+          <li><a href="index.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Home</a></li>
+          <li><a href="about.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">About Us</a></li>
+          <li><a href="packages.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Our Treks</a></li>
+          <li><a href="gallery.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Gallery</a></li>
         </ul>
       </div>
-      <div>
+      <div class="animate-on-scroll slideInRight" style="animation-delay: 0.2s;">
         <h4 class="text-lg font-semibold text-green-300">Contact</h4>
         <ul class="mt-4 space-y-2 text-green-200">
-          <li class="flex items-start"><span class="mr-2 mt-1">✉</span> info@nepaltreks.com</li>
-          <li class="flex items-start"><span class="mr-2 mt-1">☎</span> +977 123 456789</li>
-          <li class="flex items-start"><span class="mr-2 mt-1">📍</span> Belbari, Morang, Nepal</li>
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-envelope"></i></span> info@nepaltreks.com</li>
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-phone"></i></span> +977 123 456789</li>
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-map-marker-alt"></i></span> Belbari, Morang, Nepal</li>
         </ul>
       </div>
-      <div>
+      <div class="animate-on-scroll fadeInUp" style="animation-delay: 0.3s;">
         <h4 class="text-lg font-semibold text-green-300">Follow Us</h4>
         <div class="mt-4 flex space-x-4">
-          <a href="#" class="text-green-200 hover:text-white transition-colors" aria-label="Facebook">
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-          </a>
-          <a href="#" class="text-green-200 hover:text-white transition-colors" aria-label="Instagram">
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" clip-rule="evenodd" /></svg>
-          </a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-facebook-f text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-youtube text-xl"></i></a>
+        </div>
+        <h4 class="text-lg font-semibold text-green-300 mt-6">Newsletter</h4>
+        <div class="mt-2 flex">
+          <input type="email" placeholder="Your email" class="px-3 py-2 bg-green-700 text-white placeholder-green-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full" aria-label="Enter your email for newsletter">
+          <button class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-r-lg transition-colors duration-300" aria-label="Subscribe to newsletter">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
       </div>
     </div>
-    <div class="mt-8 border-t border-green-700 py-6 text-center text-green-300">
+    <div class="mt-8 border-t border-green-700 py-6 text-center text-green-200 animate-on-scroll fadeInUp" style="animation-delay: 0.4s;">
       <p>© 2025 Nepal Treks. All Rights Reserved. Adventure Awaits.</p>
     </div>
   </footer>
 
-  <!-- Tailwind Config and Custom Animations -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            inter: ['Inter', 'sans-serif'],
-            poppins: ['Poppins', 'sans-serif'],
-          },
-          animation: {
-            'slide-up': 'slideUp 0.8s ease-out forwards',
-            'hamburger-to-cross': 'hamburgerToCross 0.3s ease forwards',
-            'cross-to-hamburger': 'crossToHamburger 0.3s ease forwards',
-          },
-          keyframes: {
-            slideUp: {
-              'from': { opacity: '0', transform: 'translateY(30px)' },
-              'to': { opacity: '1', transform: 'translateY(0)' },
-            },
-            hamburgerToCross: {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(45deg)' },
-            },
-            crossToHamburger: {
-              '0%': { transform: 'rotate(45deg)' },
-              '100%': { transform: 'rotate(0deg)' },
-            },
-          },
-        },
-      },
-    };
-  </script>
-
   <!-- JavaScript for Interactivity -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Loader functionality
+      setTimeout(() => {
+        const loader = document.querySelector('.loader');
+        loader.classList.add('hidden');
+      }, 1000);
+
       // Trek Data
       const treks = [
         {
@@ -270,192 +486,312 @@
         },
       ];
 
-      // Render Trek Cards
+      // State Management
       const trekGrid = document.getElementById('trek-grid');
       const itemsPerPage = 6;
       let currentPage = 1;
+      let currentFilter = 'all';
+      let currentSort = 'default';
+      let currentSearch = '';
       let filteredTreks = [...treks];
 
-      function renderTreks(treksToShow, page = 1) {
-        trekGrid.innerHTML = '';
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const paginatedTreks = treksToShow.slice(start, end);
+      // Render Trek Cards with animations
+      function renderTreks() {
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        loadingSpinner.classList.remove('hidden');
+        
+        setTimeout(() => {
+          trekGrid.innerHTML = '';
+          
+          // Apply filters and sorting
+          let filtered = [...treks];
+          
+          // Search filter
+          if (currentSearch) {
+            filtered = filtered.filter(trek => 
+              trek.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+              trek.location.toLowerCase().includes(currentSearch.toLowerCase()) ||
+              trek.duration.toString().includes(currentSearch) ||
+              trek.description.toLowerCase().includes(currentSearch.toLowerCase())
+            );
+          }
+          
+          // Category filter
+          if (currentFilter !== 'all') {
+            filtered = filtered.filter(trek => trek.category === currentFilter);
+          }
+          
+          // Sorting
+          if (currentSort === 'price-asc') {
+            filtered.sort((a, b) => a.price - b.price);
+          } else if (currentSort === 'price-desc') {
+            filtered.sort((a, b) => b.price - a.price);
+          } else if (currentSort === 'duration-asc') {
+            filtered.sort((a, b) => a.duration - b.duration);
+          } else if (currentSort === 'duration-desc') {
+            filtered.sort((a, b) => b.duration - b.duration);
+          }
+          
+          filteredTreks = filtered;
+          
+          // Update results counter
+          document.getElementById('trekCount').textContent = filteredTreks.length;
+          document.getElementById('resultsCounter').classList.add('animate-pulse');
+          setTimeout(() => {
+            document.getElementById('resultsCounter').classList.remove('animate-pulse');
+          }, 1000);
+          
+          const start = (currentPage - 1) * itemsPerPage;
+          const end = start + itemsPerPage;
+          const paginatedTreks = filteredTreks.slice(start, end);
 
-        if (paginatedTreks.length === 0) {
-          trekGrid.innerHTML = '<p class="col-span-full text-center text-slate-600">No treks found for this category.</p>';
-          return;
-        }
+          if (paginatedTreks.length === 0) {
+            trekGrid.innerHTML = `
+              <div class="col-span-full text-center py-12 animate-on-scroll fadeInUp">
+                <i class="fas fa-search text-5xl sm:text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-lg sm:text-xl font-semibold text-slate-600">No treks found</h3>
+                <p class="text-sm sm:text-base text-slate-500 mt-2">Try adjusting your search or filter criteria</p>
+              </div>
+            `;
+            renderPagination();
+            loadingSpinner.classList.add('hidden');
+            return;
+          }
 
-        paginatedTreks.forEach((trek, index) => {
-          const card = document.createElement('div');
-          card.className = `trek-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl animate-slide-up ${trek.featured ? 'border-2 border-green-600' : ''}`;
-          card.dataset.category = trek.category;
-          card.dataset.name = trek.name;
-          card.dataset.location = trek.location;
-          card.dataset.duration = trek.duration;
-          card.dataset.price = trek.price;
-          card.style.animationDelay = `${index * 80}ms`;
-          card.innerHTML = `
-            <div class="relative overflow-hidden">
-              <img src="${trek.image}" class="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-300" alt="${trek.name} Trek" loading="lazy" />
-              ${trek.featured ? '<span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded">Featured</span>' : ''}
-            </div>
-            <div class="p-6">
-              <div class="flex justify-between items-start">
-                <h3 class="text-2xl font-bold font-poppins text-slate-800">${trek.name}</h3>
-                <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">${trek.duration} Days</span>
+          paginatedTreks.forEach((trek, index) => {
+            const card = document.createElement('div');
+            card.className = `trek-card bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl animate-on-scroll bounceIn ${trek.featured ? 'border-2 border-green-600' : ''}`;
+            card.style.animationDelay = `${index * 100}ms`;
+            card.innerHTML = `
+              <div class="card-image-wrapper relative overflow-hidden rounded-t-xl group" data-difficulty="${trek.category}">
+                <img src="${trek.image}" class="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105" alt="${trek.name} Trek" loading="lazy" />
+                ${trek.featured ? '<span class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded animate-pulse">⭐ Featured</span>' : ''}
+                <span class="absolute top-3 sm:top-4 right-3 sm:right-4 bg-black/70 text-white text-xs font-semibold px-2 py-1 rounded">${trek.duration} Days</span>
               </div>
-              <div class="flex items-center mt-4 text-slate-600 text-sm">
-                <svg class="w-4 h-4 mr-1 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>
-                <span>${trek.location}, Nepal</span>
-              </div>
-              <p class="mt-4 text-slate-600">${trek.description}</p>
-              <div class="mt-6 flex items-center justify-between">
-                <span class="text-2xl font-bold font-poppins text-green-700">Rs.${trek.price.toLocaleString()}</span>
-                <div class="flex gap-2">
-                  <button class="add-to-cart text-green-700 hover:text-white hover:bg-green-700 font-medium px-3 py-1.5 text-sm rounded-lg transition-all duration-300 border border-green-700" data-name="${trek.name}" aria-label="Add ${trek.name} to cart">Add to Cart</button>
-                  <a href="${trek.link}" class="text-green-700 hover:text-white hover:bg-green-700 font-medium px-3 py-1.5 text-sm rounded-lg transition-all duration-300 border border-green-700">Details</a>
+              <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-xl sm:text-2xl font-bold text-slate-800 animate-on-scroll fadeInUp" style="animation-delay: ${index * 100 + 100}ms;">${trek.name}</h3>
+                  <span class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded animate-on-scroll scaleIn" style="animation-delay: ${index * 100 + 200}ms;">${trek.category}</span>
+                </div>
+                <div class="flex items-center mt-2 text-slate-600 text-sm animate-on-scroll fadeInUp" style="animation-delay: ${index * 100 + 300}ms;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-green-600">
+                    <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
+                  </svg>
+                  <span>${trek.location}, Nepal</span>
+                </div>
+                <p class="mt-3 text-sm sm:text-base text-slate-600 line-clamp-2 animate-on-scroll fadeInUp" style="animation-delay: ${index * 100 + 400}ms;">${trek.description}</p>
+                <div class="mt-4 flex items-center justify-between">
+                  <div>
+                    <span class="text-xl sm:text-2xl font-bold text-green-700 animate-on-scroll fadeInUp" style="animation-delay: ${index * 100 + 500}ms;">Rs.${trek.price.toLocaleString()}</span>
+                    <p class="text-xs sm:text-sm text-slate-500 animate-on-scroll fadeInUp" style="animation-delay: ${index * 100 + 600}ms;">per person</p>
+                  </div>
+                  <div class="flex gap-2">
+                    <button class="add-to-cart bg-green-600 hover:bg-green-700 text-white font-medium px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center" data-name="${trek.name}" aria-label="Add ${trek.name} to cart">
+                      <i class="fas fa-cart-plus mr-1 sm:mr-2"></i>Add
+                    </button>
+                    <a href="${trek.link}" class="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-medium px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center">
+                      <i class="fas fa-info-circle mr-1 sm:mr-2"></i>Details
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
-          trekGrid.appendChild(card);
-        });
+            `;
+            trekGrid.appendChild(card);
+          });
 
-        renderPagination(treksToShow);
+          renderPagination();
+          loadingSpinner.classList.add('hidden');
+          
+          // Trigger scroll animations
+          setTimeout(() => {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+              observer.observe(el);
+            });
+          }, 100);
+        }, 500); // Simulate loading delay
       }
 
       // Render Pagination
-      function renderPagination(treksToShow) {
+      function renderPagination() {
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = '';
-        const totalPages = Math.ceil(treksToShow.length / itemsPerPage);
+        const totalPages = Math.ceil(filteredTreks.length / itemsPerPage);
 
+        if (totalPages <= 1) return;
+
+        // Previous button
+        if (currentPage > 1) {
+          const prevButton = document.createElement('button');
+          prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          prevButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm';
+          prevButton.addEventListener('click', () => {
+            currentPage--;
+            renderTreks();
+          });
+          pagination.appendChild(prevButton);
+        }
+
+        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
           const button = document.createElement('button');
           button.textContent = i;
-          button.className = `px-4 py-2 rounded-lg border border-gray-300 ${i === currentPage ? 'bg-green-600 text-white' : 'bg-white text-slate-700 hover:bg-green-600 hover:text-white'} transition-all duration-300`;
-          button.setAttribute('aria-label', `Go to page ${i}`);
+          button.className = `px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm ${i === currentPage ? 'bg-green-600 text-white scale-110' : 'bg-white text-slate-700 hover:bg-green-600 hover:text-white'}`;
           button.addEventListener('click', () => {
             currentPage = i;
-            renderTreks(treksToShow, i);
-            pagination.querySelectorAll('button').forEach(btn => btn.classList.remove('bg-green-600', 'text-white'));
-            button.classList.add('bg-green-600', 'text-white');
+            renderTreks();
+            window.scrollTo({ top: document.getElementById('treks').offsetTop - 100, behavior: 'smooth' });
           });
           pagination.appendChild(button);
+        }
+
+        // Next button
+        if (currentPage < totalPages) {
+          const nextButton = document.createElement('button');
+          nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          nextButton.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-gray-300 bg-white text-slate-700 hover:bg-green-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm';
+          nextButton.addEventListener('click', () => {
+            currentPage++;
+            renderTreks();
+          });
+          pagination.appendChild(nextButton);
         }
       }
 
       // Initial Render
-      renderTreks(treks);
+      renderTreks();
 
       // Mobile Menu Toggle
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const menuIcon = document.getElementById('menuIcon');
-      const closeIcon = document.getElementById('closeIcon');
-
-      function toggleMobileMenu() {
-        const isOpen = mobileMenu.classList.contains('max-h-[500px]');
-        mobileMenu.classList.toggle('max-h-[500px]', !isOpen);
-        mobileMenu.classList.toggle('max-h-0', isOpen);
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuIcon = document.getElementById("menuIcon");
+      const closeIcon = document.getElementById("closeIcon");
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      
+      const toggleMenu = () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open', !isOpen);
         menuIcon.classList.toggle('hidden', !isOpen);
         closeIcon.classList.toggle('hidden', isOpen);
-        menuIcon.classList.toggle('animate-hamburger-to-cross', !isOpen);
-        menuIcon.classList.toggle('animate-cross-to-hamburger', isOpen);
-      }
+      };
 
-      menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent click from bubbling to window
-        toggleMobileMenu();
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
       });
 
-      // Close Mobile Menu on Link or Cart Button Click
-      const mobileNavLinks = document.querySelectorAll('#mobileMenu a, #mobileCartBtn');
-      mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          toggleMobileMenu();
-        });
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
       });
 
-      // Close Mobile Menu on Outside Click
-      window.addEventListener('click', (event) => {
-        if (mobileMenu.classList.contains('max-h-[500px]') && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
-          toggleMobileMenu();
+      // Scroll Animation
+      const scrollElements = document.querySelectorAll('.animate-on-scroll');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      scrollElements.forEach((el) => observer.observe(el));
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      const backToTopBtn = document.querySelector(".back-to-top");
+
+      window.addEventListener("scroll", () => {
+        const scrollPosition = window.scrollY;
+
+        navbar.classList.remove("navbar-scrolled");
+        navbar.classList.add("bg-white/90", "backdrop-blur-md");
+
+        if (scrollPosition > 50) {
+          navbar.classList.add("navbar-scrolled");
+          navbar.classList.remove("bg-white/90");
+          backToTopBtn.classList.remove("opacity-0", "invisible");
+          backToTopBtn.classList.add("opacity-100", "visible");
+        } else {
+          navbar.classList.remove("navbar-scrolled");
+          navbar.classList.add("bg-white/90");
+          backToTopBtn.classList.add("opacity-0", "invisible");
+          backToTopBtn.classList.remove("opacity-100", "visible");
         }
       });
 
-      // Trek Filtering
-      const filterContainer = document.getElementById('filter-container');
-      filterContainer.addEventListener('click', (event) => {
-        const target = event.target.closest('.filter-btn');
-        if (!target) return;
-
-        filterContainer.querySelector('.active').classList.remove('active', 'bg-green-800', 'text-white', 'scale-105');
-        target.classList.add('active', 'bg-green-800', 'text-white', 'scale-105');
-        target.setAttribute('aria-pressed', 'true');
-        filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
-          if (btn !== target) btn.setAttribute('aria-pressed', 'false');
+      // Back to Top button functionality
+      backToTopBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
         });
-
-        const filter = target.dataset.filter;
-        currentPage = 1;
-        filteredTreks = filter === 'all' ? [...treks] : treks.filter(trek => trek.category === filter);
-        renderTreks(filteredTreks);
       });
 
-      // Search Functionality
+      // Trek Filtering
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-green-800', 'text-white', 'scale-105');
+            btn.classList.add('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+          });
+          
+          // Add active class to clicked button
+          button.classList.add('active', 'bg-green-800', 'text-white', 'scale-105');
+          button.classList.remove('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+          
+          currentFilter = button.dataset.filter;
+          currentPage = 1;
+          renderTreks();
+        });
+      });
+
+      // Search Functionality with Debounce
+      let searchTimeout;
       const searchInput = document.getElementById('searchInput');
       searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        currentPage = 1;
-        filteredTreks = treks.filter(trek => 
-          trek.name.toLowerCase().includes(searchTerm) ||
-          trek.location.toLowerCase().includes(searchTerm) ||
-          trek.duration.toString().includes(searchTerm)
-        );
-        renderTreks(filteredTreks);
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          currentSearch = e.target.value;
+          currentPage = 1;
+          renderTreks();
+        }, 300);
       });
 
       // Sort Functionality
       const sortSelect = document.getElementById('sortSelect');
       sortSelect.addEventListener('change', (e) => {
-        const sortValue = e.target.value;
+        currentSort = e.target.value;
         currentPage = 1;
-        if (sortValue === 'price-asc') {
-          filteredTreks.sort((a, b) => a.price - b.price);
-        } else if (sortValue === 'price-desc') {
-          filteredTreks.sort((a, b) => b.price - b.price);
-        } else if (sortValue === 'duration-asc') {
-          filteredTreks.sort((a, b) => a.duration - b.duration);
-        } else if (sortValue === 'duration-desc') {
-          filteredTreks.sort((a, b) => b.duration - a.duration);
-        } else {
-          filteredTreks = [...treks];
-        }
-        renderTreks(filteredTreks);
+        renderTreks();
       });
 
       // Cart Functionality
       let cart = JSON.parse(localStorage.getItem('cart')) || null;
-      const cartBtn = document.getElementById('cartBtn');
-      const mobileCartBtn = document.getElementById('mobileCartBtn');
       const cartModal = document.getElementById('cartModal');
       const cartItems = document.getElementById('cartItems');
-      const cartCount = document.getElementById('cartCount');
-      const mobileCartCount = document.getElementById('mobileCartCount');
+      const cartTotal = document.getElementById('cartTotal');
       const closeCart = document.getElementById('closeCart');
       const clearCart = document.getElementById('clearCart');
       const proceedToBooking = document.getElementById('proceedToBooking');
       const alertModal = document.getElementById('alertModal');
       const alertTitle = document.getElementById('alertTitle');
       const alertMessage = document.getElementById('alertMessage');
+      const alertIcon = document.getElementById('alertIcon');
       const closeAlert = document.getElementById('closeAlert');
 
-      function showAlert(title, message) {
+      function showAlert(title, message, type = 'success') {
         alertTitle.textContent = title;
         alertMessage.textContent = message;
+        if (type === 'error') {
+          alertIcon.className = 'fas fa-exclamation-triangle text-xl text-red-600';
+        } else {
+          alertIcon.className = 'fas fa-check text-xl text-green-600';
+        }
         alertModal.classList.remove('hidden');
         alertModal.setAttribute('aria-hidden', 'false');
       }
@@ -466,50 +802,58 @@
       }
 
       function updateCart() {
-        cartCount.textContent = cart ? 1 : 0;
-        mobileCartCount.textContent = cart ? 1 : 0;
+        const cartCountValue = cart ? 1 : 0;
+        cartTotal.textContent = cart ? `Rs.${cart.price.toLocaleString()}` : 'Rs.0';
+        
         cartItems.innerHTML = cart ? `
-          <div class="flex justify-between items-center border-b border-gray-200 py-2">
-            <div>
-              <h4 class="text-lg font-semibold">${cart.name}</h4>
-              <p class="text-sm text-slate-600">Rs.${cart.price ? cart.price.toLocaleString() : 'N/A'}</p>
+          <div class="flex justify-between items-center border-b border-gray-200 py-3 animate-on-scroll fadeInUp">
+            <div class="flex items-center">
+              <img src="${treks.find(t => t.name === cart.name)?.image || ''}" class="w-10 sm:w-12 h-10 sm:h-12 object-cover rounded-lg mr-3" alt="${cart.name}">
+              <div>
+                <h4 class="text-base sm:text-lg font-semibold">${cart.name}</h4>
+                <p class="text-xs sm:text-sm text-slate-600">${treks.find(t => t.name === cart.name)?.duration} Days</p>
+              </div>
             </div>
-            <button class="remove-from-cart text-red-600 hover:text-red-800" aria-label="Remove ${cart.name} from cart">Remove</button>
+            <div class="text-right">
+              <p class="text-base sm:text-lg font-bold text-green-600">Rs.${cart.price.toLocaleString()}</p>
+              <button class="remove-from-cart text-red-600 hover:text-red-800 text-xs sm:text-sm mt-1" aria-label="Remove ${cart.name} from cart">
+                <i class="fas fa-trash mr-1"></i>Remove
+              </button>
+            </div>
           </div>
-        ` : '<p class="text-slate-600">Your cart is empty.</p>';
+        ` : '<div class="text-center py-6 sm:py-8 text-slate-500 animate-on-scroll fadeInUp"><i class="fas fa-shopping-cart text-3xl sm:text-4xl mb-3"></i><p class="text-sm sm:text-base">Your cart is empty</p></div>';
+        
         proceedToBooking.setAttribute('href', cart ? `booking.html?trek=${encodeURIComponent(cart.name)}` : '#');
         localStorage.setItem('cart', JSON.stringify(cart));
       }
 
-      trekGrid.addEventListener('click', (e) => {
-        const target = e.target.closest('.add-to-cart');
-        if (!target) return;
-        const trekName = target.dataset.name;
-        const trek = treks.find(t => t.name === trekName);
-        if (cart && cart.name !== trekName) {
-          showAlert('Cart Limit', 'Sorry, you can only book one package at a time.');
-          return;
+      // Add to cart functionality
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.add-to-cart')) {
+          const button = e.target.closest('.add-to-cart');
+          const trekName = button.dataset.name;
+          const trek = treks.find(t => t.name === trekName);
+          
+          if (cart && cart.name !== trekName) {
+            showAlert('Cart Limit', 'Sorry, you can only book one package at a time. Please remove the current item first.', 'error');
+            return;
+          }
+          
+          cart = { name: trek.name, price: trek.price };
+          updateCart();
+          showAlert('Added to Cart!', `Successfully added ${trek.name} to your cart. Ready for adventure?`);
+          cartModal.classList.remove('hidden');
+          cartModal.setAttribute('aria-hidden', 'false');
         }
-        cart = { name: trek.name, price: trek.price };
-        updateCart();
-        showAlert('Success', `Successfully added ${trek.name} to cart!`);
       });
 
+      // Remove from cart functionality
       cartItems.addEventListener('click', (e) => {
-        const target = e.target.closest('.remove-from-cart');
-        if (!target) return;
-        cart = null;
-        updateCart();
-      });
-
-      cartBtn.addEventListener('click', () => {
-        cartModal.classList.remove('hidden');
-        cartModal.setAttribute('aria-hidden', 'false');
-      });
-
-      mobileCartBtn.addEventListener('click', () => {
-        cartModal.classList.remove('hidden');
-        cartModal.setAttribute('aria-hidden', 'false');
+        if (e.target.closest('.remove-from-cart')) {
+          cart = null;
+          updateCart();
+          showAlert('Item Removed', 'The item has been removed from your cart.');
+        }
       });
 
       closeCart.addEventListener('click', () => {
@@ -520,6 +864,7 @@
       clearCart.addEventListener('click', () => {
         cart = null;
         updateCart();
+        showAlert('Cart Cleared', 'All items have been removed from your cart.');
       });
 
       closeAlert.addEventListener('click', closeAlertModal);
@@ -535,35 +880,6 @@
       });
 
       updateCart();
-
-      // Navbar Scroll Effect
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('shadow-md', 'bg-white');
-          navbar.classList.remove('bg-white/90');
-        } else {
-          navbar.classList.remove('shadow-md', 'bg-white');
-          navbar.classList.add('bg-white/90');
-        }
-      });
-
-      // Intersection Observer for Scroll Animations
-      const scrollElements = document.querySelectorAll('.animate-slide-up');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-8');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      scrollElements.forEach(el => {
-        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-600', 'ease-out');
-        observer.observe(el);
-      });
     });
   </script>
 </body>

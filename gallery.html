@@ -5,361 +5,437 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | Nepal Treks</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            logoSpin: 'logoSpin 0.5s ease-in-out forwards',
+            textFocus: 'textFocus 2s ease-in-out infinite',
+            pulse: 'pulse 1.5s ease-in-out infinite',
+            bounceIn: 'bounceIn 0.8s ease-out forwards',
+            float: 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            logoSpin: {
+              '0%': { transform: 'rotate(0deg) scale(1)' },
+              '100%': { transform: 'rotate(15deg) scale(1.1)' }
+            },
+            textFocus: {
+              '0%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' },
+              '50%': { textShadow: '0 0 15px rgba(22, 101, 52, 0.7)' },
+              '100%': { textShadow: '0 0 5px rgba(22, 101, 52, 0.3)' }
+            },
+            pulse: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.2)', opacity: '0.8' }
+            },
+            bounceIn: {
+              '0%': { transform: 'scale(0.3)', opacity: '0' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.7' },
+              '70%': { transform: 'scale(0.95)', opacity: '1' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
     }
-    h1, h2, h3, h4, h5, h6 {
-      font-family: "Poppins", sans-serif;
+  </script>
+  <style>
+    [id="mobileMenu"] {
+      transition: max-height 0.4s ease-in-out;
+      max-height: 0;
+      overflow: hidden;
+    }
+    [id="mobileMenu"].open {
+      max-height: 96rem;
+    }
+    .navbar-scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-dark-section {
+      background-color: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #16a34a, #22c55e, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-container:hover {
+      box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3);
+    }
+    .logo-container:hover img {
+      animation: logoSpin 1s ease-in-out;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0; }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes bounceIn {
+      from { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 0.7; }
+      70% { transform: scale(0.95); opacity: 1; }
       to { transform: scale(1); opacity: 1; }
     }
-    @keyframes captionSlide {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .gallery-header-bg {
-      background-image: url('./images/manaslu/5.jpg');
-      background-attachment: scroll; /* Fixed मा समस्या भए mobile मा adjust गर्न */
-      position: relative;
-      background-size: cover;
-      background-position: center;
-    }
-    .gallery-header-bg::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-      z-index: 1;
-    }
-    .gallery-header-bg > div {
-      position: relative;
-      z-index: 2;
-    }
-    .gallery-item {
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1/1;
-    }
-    .gallery-item:hover .gallery-caption {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 10px;
-      opacity: 0;
-      transform: translateY(100%);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    #mobileMenu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out;
-    }
-    #mobileMenu.open {
-      max-height: 15rem; /* Adjust based on content height */
-    }
-    #image-modal {
+    .scrollbar-hide::-webkit-scrollbar {
       display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .gallery-item::after {
+      content: attr(data-caption);
+      position: absolute;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      font-weight: 600;
       opacity: 0;
-      transition: opacity 0.3s ease-in-out;
+      transform: translateY(20px);
+      transition: all 0.3s ease-in-out;
     }
-    #image-modal.open {
-      display: flex;
+    .gallery-item:hover::after {
       opacity: 1;
-      pointer-events: auto;
+      transform: translateY(0);
     }
-    #modal-image {
-      transition: transform 0.3s ease;
-    }
-    .parallax {
-      will-change: background-position;
+    .filter-btn.active {
+      background-color: #166534 !important;
+      color: white !important;
+      transform: scale(1.05) !important;
+      box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3);
     }
     .filter-btn.active .filter-count {
-      background: white;
-      color: #15803d;
+      background: white !important;
+      color: #166534 !important;
     }
   </style>
 </head>
-<body class="bg-white text-slate-700">
+<body class="bg-slate-50 text-slate-700 font-['Inter'] [&_h1]:font-['Poppins'] [&_h2]:font-['Poppins'] [&_h3]:font-['Poppins'] [&_h4]:font-['Poppins'] [&_h5]:font-['Poppins'] [&_h6]:font-['Poppins'] pt-0 m-0">
+  <!-- Loader -->
+  <div class="loader fixed inset-0 bg-white flex items-center justify-center z-[9999] transition-opacity duration-500">
+    <div class="spinner w-[50px] h-[50px] border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top fixed bottom-5 right-5 bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 z-[1000]" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Book Now Button -->
+  <a href="contact.html" class="book-now fixed bottom-20 right-5 bg-green-600 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 hover:bg-green-800 transition-all duration-300 z-[1000] animate-float" aria-label="Book now">Book Now</a>
+
   <!-- Navigation -->
   <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
-        <div class="flex-shrink-0">
-          <a href="index.html" class="text-3xl font-bold text-green-800">Nepal<span class="text-green-600">Treks</span></a>
+        <div class="flex-shrink-0 flex items-center">
+          <a href="index.html" class="group hover-lift logo-container rounded-full">
+            <div class="flex items-center">
+              <img src="./images/logo.png" alt="Nepal Treks Logo" class="h-10 w-10 rounded-full object-cover bg-white/90 p-1 group-hover:animate-logo-spin" />
+              <span class="ml-2 text-xl font-bold font-['Poppins'] bg-gradient-to-r from-green-600 via-green-500 to-green-400 text-transparent bg-clip-text animate-pulse-slow">NepalTreks</span>
+            </div>
+          </a>
         </div>
-        <div class="hidden md:flex items-center space-x-8">
-          <ul class="flex items-baseline space-x-8">
-            <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Home<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-            <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">About<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-            <li><a href="packages.html" class="text-slate-800 hover:text-green-600 font-medium transition-colors duration-300 relative group">Packages<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-            <li><a href="gallery.html" class="text-green-600 font-bold relative">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600"></span></a></li>
-            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 transform hover:scale-105">Contact Us</a></li>
+        <div class="hidden md:flex items-center space-x-6">
+          <ul class="flex items-baseline space-x-6">
+            <li><a href="index.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              Home
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="about.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              About
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="packages.html" class="text-slate-800 hover:text-green-600 font-medium transition-all duration-300 relative group">
+              Packages
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a></li>
+            <li><a href="gallery.html" class="text-green-600 font-bold relative">
+              Gallery
+              <span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-600"></span>
+            </a></li>
+            <li><a href="contact.html" class="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 py-2 rounded-full shadow-lg hover:from-green-700 hover:to-green-900 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              Contact Us
+            </a></li>
           </ul>
         </div>
         <div class="md:hidden">
-          <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-colors" aria-label="Toggle menu">
-            <svg id="menuIcon" class="w-7 h-7 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
-            <svg id="closeIcon" class="w-7 h-7 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-all duration-300 hover:shadow-xl" aria-label="Toggle menu">
+            <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <svg id="closeIcon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
           </button>
         </div>
       </div>
     </div>
     <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
       <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
-        <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Home</a>
-        <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">About</a>
-        <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Packages</a>
-        <a href="gallery.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-colors duration-200">Gallery</a>
-        <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-colors duration-200">Contact</a>
+        <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Home</a>
+        <a href="about.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">About</a>
+        <a href="packages.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Packages</a>
+        <a href="gallery.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Gallery</a>
+        <a href="contact.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Contact</a>
       </div>
     </div>
   </nav>
 
   <!-- Header -->
-  <header class="gallery-header-bg bg-cover bg-center h-[60vh] md:h-[70vh] flex items-center justify-center parallax">
-    <div class="text-center text-white px-4">
-      <h1 class="text-4xl md:text-6xl font-extrabold fade-in-up bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-600">A Visual Journey</h1>
-      <p class="mt-4 text-lg md:text-xl fade-in-up delay-300">Experience the Himalayas Through Our Lenses</p>
+  <header id="top" class="relative h-[60vh] flex items-center justify-center text-center text-white bg-[url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center">
+    <div class="hero-video-wrapper absolute inset-0 w-full h-full overflow-hidden -z-10">
+      <video playsinline autoplay muted loop class="hero-video w-full h-full object-cover">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-beautiful-shot-of-a-himalayan-mountain-4264-large.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative z-10 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold animate-on-scroll bounceIn gradient-text">A Visual Journey</h1>
+      <p class="mt-4 text-base sm:text-lg md:text-xl max-w-2xl mx-auto animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Experience the Himalayas Through Our Lenses</p>
+      <div class="mt-6 sm:mt-8 animate-on-scroll bounceIn" style="animation-delay: 0.4s;">
+        <a href="#gallery" class="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <i class="fas fa-camera mr-2"></i>Explore Gallery
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- Gallery Section -->
-  <section class="py-20 bg-slate-50">
+  <section class="py-16 sm:py-20 lg:py-28 bg-white" id="gallery">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 animate-on-scroll border-b-4 border-green-500 pb-2 inline-block bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-800">Our Photo Gallery</h2>
-        <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-on-scroll delay-150">Moments captured from the majestic trails, from grand vistas to quiet cultural encounters that define the Himalayan experience.</p>
+      <div class="text-center animate-on-scroll bounceIn">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-800">Our Photo Gallery</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-on-scroll fadeInUp" style="animation-delay: 0.2s;">Moments captured from the majestic trails, from grand vistas to quiet cultural encounters.</p>
       </div>
       <!-- Filter Buttons -->
-      <div class="mt-8 flex flex-wrap justify-center gap-4 animate-on-scroll">
-        <button data-filter="all" class="filter-btn px-4 py-2 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-all duration-300 active flex items-center" aria-pressed="true">All <span class="filter-count ml-2 bg-white/30 px-2 py-1 rounded-full text-xs">12</span></button>
-        <button data-filter="everest" class="filter-btn px-4 py-2 rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center" aria-pressed="false">Everest <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span></button>
-        <button data-filter="annapurna" class="filter-btn px-4 py-2 rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center" aria-pressed="false">Annapurna <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span></button>
-        <button data-filter="langtang" class="filter-btn px-4 py-2 rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center" aria-pressed="false">Langtang <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span></button>
-        <button data-filter="other" class="filter-btn px-4 py-2 rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center" aria-pressed="false">Other <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span></button>
+      <div class="mt-8 sm:mt-12 flex justify-center flex-wrap gap-2 sm:gap-3 md:gap-4 animate-on-scroll fadeInUp" style="animation-delay: 0.3s;">
+        <button data-filter="all" class="filter-btn active font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-white bg-green-800 transform scale-105 transition-all duration-300 hover:shadow-xl animate-pulse" aria-pressed="true">
+          All <span class="filter-count ml-2 bg-white text-green-800 px-2 py-1 rounded-full text-xs">12</span>
+        </button>
+        <button data-filter="everest" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          Everest <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span>
+        </button>
+        <button data-filter="annapurna" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          Annapurna <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span>
+        </button>
+        <button data-filter="langtang" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          Langtang <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span>
+        </button>
+        <button data-filter="other" class="filter-btn font-semibold px-4 sm:px-5 py-2 rounded-full border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-xl" aria-pressed="false">
+          Other <span class="filter-count ml-2 bg-green-100 px-2 py-1 rounded-full text-xs">3</span>
+        </button>
+      </div>
+      <!-- Loading Spinner -->
+      <div id="loadingSpinner" class="hidden mt-8 flex justify-center">
+        <div class="spinner w-[50px] h-[50px] border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
       <!-- Gallery Grid -->
-      <div class="mt-12 columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6" id="gallery-grid">
-        <!-- Everest -->
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="everest" data-src="./images/ebc/EBC-Trail.jpg.optimal.jpg" data-alt="Everest Base Camp trail" data-description="Trekking through the iconic trails leading to the base of the world's highest peak.">
-          <img src="./images/ebc/EBC-Trail.jpg.optimal.jpg" alt="Everest Base Camp trail" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Everest Base Camp trail</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="everest" data-src="./images/ebc/Dingboche.jpg.optimal.jpg" data-alt="Everest trail" data-description="A scenic trail with views of Everest's towering peaks.">
-          <img src="./images/ebc/Dingboche.jpg.optimal.jpg" alt="Everest trail" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Everest trail</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="everest" data-src="./images/ebc/Pheriche-Nepal.jpg.optimal.jpg" data-alt="Everest summit view" data-description="Breathtaking summit view of Mount Everest.">
-          <img src="./images/ebc/Pheriche-Nepal.jpg.optimal.jpg" alt="Everest summit view" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Everest summit view</div>
-        </a>
-        <!-- Annapurna -->
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="annapurna" data-src="./images/Poon-Hill-trek-itinerary-Nepal.jpg.webp" data-alt="Poon Hill sunrise" data-description="Breathtaking sunrise over the Annapurna range from Poon Hill.">
-          <img src="./images/Poon-Hill-trek-itinerary-Nepal.jpg.webp" alt="Poon Hill sunrise" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Poon Hill sunrise</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="annapurna" data-src="./images/abc/3.avif" data-alt="Mardi Himal trek" data-description="A stunning close-up of Machhapuchhre from Mardi Himal trek.">
-          <img src="./images/abc/3.avif" alt="Mardi Himal trek" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Mardi Himal trek</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="annapurna" data-src="./images/abc/2.avif" data-alt="Annapurna Base Camp" data-description="The serene beauty of Annapurna Base Camp.">
-          <img src="./images/abc/2.avif" alt="Annapurna Base Camp" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Annapurna Base Camp</div>
-        </a>
-        <!-- Langtang -->
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="langtang" data-src="./images/langtang.webp" data-alt="Langtang Valley" data-description="The serene beauty of Langtang Valley, known as the valley of glaciers.">
-          <img src="./images/langtang.webp" alt="Langtang Valley" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Langtang Valley</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="langtang" data-src="./images/lng/langtang-region.webp" data-alt="Langtang glacier" data-description="Majestic glacier views in Langtang region.">
-          <img src="./images/lng/langtang-region.webp" alt="Langtang glacier" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Langtang glacier</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="langtang" data-src="./images/lng/langtang-valley-trek.webp" data-alt="Langtang village" data-description="A peaceful village in the Langtang region.">
-          <img src="./images/lng/langtang-valley-trek.webp" alt="Langtang village" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Langtang village</div>
-        </a>
-        <!-- Other -->
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="other" data-src="./images/manaslu.jpeg" data-alt="Manaslu" data-description="Majestic view of Manaslu, the eighth highest peak in the world.">
-          <img src="./images/manaslu.jpeg" alt="Manaslu" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Manaslu</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="other" data-src="./images/upper-mustang-trek-nepal.webp" data-alt="Upper Mustang" data-description="Vibrant red cliffs in the remote Upper Mustang region.">
-          <img src="./images/upper-mustang-trek-nepal.webp" alt="Upper Mustang" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Upper Mustang</div>
-        </a>
-        <a href="javascript:void(0);" class="gallery-item block mb-6 rounded-xl shadow-lg animate-on-scroll break-inside-avoid" data-category="other" data-src="./images/kanch-bc-1.jpg" data-alt="Kanchenjunga" data-description="Adventurous trekkers exploring the remote Kanchenjunga region.">
-          <img src="./images/kanch-bc-1.jpg" alt="Kanchenjunga" class="w-full h-full object-cover rounded-xl" loading="lazy" />
-          <div class="gallery-caption">Kanchenjunga</div>
-        </a>
-      </div>
+      <div id="gallery-grid" class="mt-8 sm:mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-green-900 text-white">
-    <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
-      <div class="col-span-1 md:col-span-1">
-        <h3 class="text-3xl font-bold mb-4 text-green-100">Nepal<span class="text-green-400">Treks</span></h3>
-        <p class="mt-4 text-green-200 leading-relaxed">Crafting unforgettable Himalayan adventures since 2010. Your journey to the majestic peaks starts here.</p>
-      </div>
-      <div>
-        <h4 class="text-xl font-semibold text-green-300 mb-5 border-b-2 border-green-700 pb-2">Quick Links</h4>
-        <ul class="mt-4 space-y-3">
-          <li><a href="about.html" class="text-green-200 hover:text-green-400 transition-colors relative group">About Us<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-          <li><a href="packages.html" class="text-green-200 hover:text-green-400 transition-colors relative group">Our Treks<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-          <li><a href="gallery.html" class="text-green-200 hover:text-green-400 transition-colors relative group">Gallery<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-          <li><a href="contact.html" class="text-green-200 hover:text-green-400 transition-colors relative group">Contact<span class="absolute left-0 bottom-0 w-full h-0.5 bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span></a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-xl font-semibold text-green-300 mb-5 border-b-2 border-green-700 pb-2">Reach Out</h4>
-        <ul class="mt-4 space-y-3 text-green-200">
-          <li class="flex items-center"><span class="mr-3 text-green-400">✉</span> info@nepaltreks.com</li>
-          <li class="flex items-center"><span class="mr-3 text-green-400">☎</span> +977 123 456789</li>
-          <li class="flex items-center"><span class="mr-3 text-green-400">📍</span> Belbari, Morang, Nepal</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-xl font-semibold text-green-300 mb-5 border-b-2 border-green-700 pb-2">Follow Our Journey</h4>
-        <div class="mt-4 flex space-x-5">
-          <a href="#" class="text-green-200 hover:text-white transition-transform transform hover:scale-125 duration-300">
-            <span class="sr-only">Facebook</span>
-            <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-          </a>
-          <a href="#" class="text-green-200 hover:text-white transition-transform transform hover:scale-125 duration-300">
-            <span class="sr-only">Instagram</span>
-            <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" clip-rule="evenodd" /></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-12 border-t border-green-700 py-8 text-center text-green-300">
-      <p>© 2025 Nepal Treks. All Rights Reserved. Adventure Awaits.</p>
-    </div>
-  </footer>
-
   <!-- Image Modal -->
-  <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" role="dialog" aria-label="Image Gallery Modal">
-    <button id="close-modal-button" class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-50">
-      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+  <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden animate-on-scroll fadeInUp" role="dialog" aria-hidden="true">
+    <button id="close-modal-button" class="absolute top-4 right-4 text-white/70 hover:text-white transition-all duration-300 hover:scale-110 z-50" aria-label="Close modal">
+      <i class="fas fa-times w-8 h-8"></i>
     </button>
-    <button id="prev-button" class="absolute left-4 md:left-8 text-white/70 hover:text-white transition-colors z-50 p-2 rounded-full bg-black/30 hover:bg-black/50">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    <button id="prev-button" class="absolute left-4 sm:left-8 text-white/70 hover:text-white transition-all duration-300 hover:scale-110 z-50 p-2 rounded-full bg-black/30 hover:bg-black/50" aria-label="Previous image">
+      <i class="fas fa-chevron-left w-6 h-6"></i>
     </button>
-    <button id="next-button" class="absolute right-4 md:right-8 text-white/70 hover:text-white transition-colors z-50 p-2 rounded-full bg-black/30 hover:bg-black/50">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    <button id="next-button" class="absolute right-4 sm:right-8 text-white/70 hover:text-white transition-all duration-300 hover:scale-110 z-50 p-2 rounded-full bg-black/30 hover:bg-black/50" aria-label="Next image">
+      <i class="fas fa-chevron-right w-6 h-6"></i>
     </button>
-    <button id="zoom-in-button" class="absolute bottom-16 md:bottom-20 right-4 md:right-8 text-white/70 hover:text-white transition-colors z-50 p-2 rounded-full bg-black/30 hover:bg-black/50">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+    <button id="zoom-in-button" class="absolute bottom-16 sm:bottom-20 right-4 sm:right-8 text-white/70 hover:text-white transition-all duration-300 hover:scale-110 z-50 p-2 rounded-full bg-black/30 hover:bg-black/50" aria-label="Zoom in">
+      <i class="fas fa-plus w-6 h-6"></i>
     </button>
-    <button id="zoom-out-button" class="absolute bottom-28 md:bottom-32 right-4 md:right-8 text-white/70 hover:text-white transition-colors z-50 p-2 rounded-full bg-black/30 hover:bg-black/50">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path></svg>
+    <button id="zoom-out-button" class="absolute bottom-28 sm:bottom-32 right-4 sm:right-8 text-white/70 hover:text-white transition-all duration-300 hover:scale-110 z-50 p-2 rounded-full bg-black/30 hover:bg-black/50" aria-label="Zoom out">
+      <i class="fas fa-minus w-6 h-6"></i>
     </button>
-    <div class="relative max-w-5xl max-h-[90vh] w-full h-full">
+    <div class="relative max-w-5xl max-h-[90vh] w-full h-full animate-on-scroll scaleIn">
       <img id="modal-image" src="" alt="Full-size view" class="w-full h-full object-contain rounded-lg" />
-      <div id="modal-caption" class="absolute bottom-4 left-0 right-0 text-white text-center bg-black/50 px-4 py-2 rounded-md md:max-w-md md:mx-auto">
+      <div id="modal-caption" class="absolute bottom-4 left-0 right-0 text-white text-center bg-black/50 px-4 py-2 rounded-md sm:max-w-md sm:mx-auto animate-on-scroll fadeInUp" style="animation-delay: 0.1s;">
         <p id="modal-image-alt" class="text-sm font-semibold"></p>
         <p id="modal-image-description" class="text-xs mt-1"></p>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-1 animate-on-scroll fadeInUp">
+        <h3 class="text-2xl font-bold">Nepal<span class="text-green-400">Treks</span></h3>
+        <p class="mt-4 text-green-200">Crafting unforgettable Himalayan adventures since 2010.</p>
+      </div>
+      <div class="animate-on-scroll slideInLeft" style="animation-delay: 0.1s;">
+        <h4 class="text-lg font-semibold text-green-300">Quick Links</h4>
+        <ul class="mt-4 space-y-2">
+          <li><a href="index.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Home</a></li>
+          <li><a href="about.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">About Us</a></li>
+          <li><a href="packages.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Our Treks</a></li>
+          <li><a href="gallery.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="animate-on-scroll slideInRight" style="animation-delay: 0.2s;">
+        <h4 class="text-lg font-semibold text-green-300">Contact</h4>
+        <ul class="mt-4 space-y-2 text-green-200">
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-envelope"></i></span> info@nepaltreks.com</li>
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-phone"></i></span> +977 123 456789</li>
+          <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-map-marker-alt"></i></span> Belbari, Morang, Nepal</li>
+        </ul>
+      </div>
+      <div class="animate-on-scroll fadeInUp" style="animation-delay: 0.3s;">
+        <h4 class="text-lg font-semibold text-green-300">Follow Us</h4>
+        <div class="mt-4 flex space-x-4">
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-facebook-f text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
+          <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-youtube text-xl"></i></a>
+        </div>
+        <h4 class="text-lg font-semibold text-green-300 mt-6">Newsletter</h4>
+        <div class="mt-2 flex">
+          <input type="email" placeholder="Your email" class="px-3 py-2 bg-green-700 text-white placeholder-green-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full" aria-label="Enter your email for newsletter">
+          <button class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-r-lg transition-colors duration-300" aria-label="Subscribe to newsletter">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-green-700 py-6 text-center text-green-200 animate-on-scroll fadeInUp" style="animation-delay: 0.4s;">
+      <p>© 2025 Nepal Treks. All Rights Reserved. Adventure Awaits.</p>
+    </div>
+  </footer>
+
   <!-- JavaScript -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Mobile Menu Toggle
-      const menuBtn = document.getElementById("menuBtn");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const menuIcon = document.getElementById("menuIcon");
-      const closeIcon = document.getElementById("closeIcon");
+    document.addEventListener('DOMContentLoaded', () => {
+      // Loader functionality
+      setTimeout(() => {
+        const loader = document.querySelector('.loader');
+        loader.classList.add('hidden');
+      }, 1000);
 
-      function toggleMobileMenu() {
-        const isOpen = mobileMenu.classList.contains("open");
-        mobileMenu.classList.toggle("open", !isOpen);
-        menuIcon.classList.toggle("hidden", !isOpen);
-        closeIcon.classList.toggle("hidden", isOpen);
-        menuIcon.style.transform = isOpen ? "rotate(0deg)" : "rotate(45deg)";
-        closeIcon.style.transform = isOpen ? "rotate(45deg)" : "rotate(0deg)";
+      // Gallery Data
+      const galleryItemsData = [
+        { category: 'everest', src: './images/ebc/EBC-Trail.jpg.optimal.jpg', alt: 'Everest Base Camp trail', description: 'Trekking through the iconic trails leading to the base of the world\'s highest peak.' },
+        { category: 'everest', src: './images/ebc/Dingboche.jpg.optimal.jpg', alt: 'Everest trail', description: 'A scenic trail with views of Everest\'s towering peaks.' },
+        { category: 'everest', src: './images/ebc/Pheriche-Nepal.jpg.optimal.jpg', alt: 'Everest summit view', description: 'Breathtaking summit view of Mount Everest.' },
+        { category: 'annapurna', src: './images/Poon-Hill-trek-itinerary-Nepal.jpg.webp', alt: 'Poon Hill sunrise', description: 'Breathtaking sunrise over the Annapurna range from Poon Hill.' },
+        { category: 'annapurna', src: './images/abc/3.avif', alt: 'Mardi Himal trek', description: 'A stunning close-up of Machhapuchhre from Mardi Himal trek.' },
+        { category: 'annapurna', src: './images/abc/2.avif', alt: 'Annapurna Base Camp', description: 'The serene beauty of Annapurna Base Camp.' },
+        { category: 'langtang', src: './images/langtang.webp', alt: 'Langtang Valley', description: 'The serene beauty of Langtang Valley, known as the valley of glaciers.' },
+        { category: 'langtang', src: './images/lng/langtang-region.webp', alt: 'Langtang glacier', description: 'Majestic glacier views in Langtang region.' },
+        { category: 'langtang', src: './images/lng/langtang-valley-trek.webp', alt: 'Langtang village', description: 'A peaceful village in the Langtang region.' },
+        { category: 'other', src: './images/manaslu.jpeg', alt: 'Manaslu', description: 'Majestic view of Manaslu, the eighth highest peak in the world.' },
+        { category: 'other', src: './images/upper-mustang-trek-nepal.webp', alt: 'Upper Mustang', description: 'Vibrant red cliffs in the remote Upper Mustang region.' },
+        { category: 'other', src: './images/kanch-bc-1.jpg', alt: 'Kanchenjunga', description: 'Adventurous trekkers exploring the remote Kanchenjunga region.' },
+      ];
+
+      // State Management
+      const galleryGrid = document.getElementById('gallery-grid');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      let currentFilter = 'all';
+
+      // Render Gallery Items
+      function renderGallery() {
+        loadingSpinner.classList.remove('hidden');
+        setTimeout(() => {
+          galleryGrid.innerHTML = '';
+          const filteredItems = currentFilter === 'all' ? galleryItemsData : galleryItemsData.filter(item => item.category === currentFilter);
+          
+          if (filteredItems.length === 0) {
+            galleryGrid.innerHTML = `
+              <div class="col-span-full text-center py-12 animate-on-scroll fadeInUp">
+                <i class="fas fa-camera text-5xl sm:text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-lg sm:text-xl font-semibold text-slate-600">No images found</h3>
+                <p class="text-sm sm:text-base text-slate-500 mt-2">Try adjusting your filter criteria</p>
+              </div>
+            `;
+            loadingSpinner.classList.add('hidden');
+            return;
+          }
+
+          filteredItems.forEach((item, index) => {
+            const galleryItem = document.createElement('a');
+            galleryItem.href = 'javascript:void(0);';
+            galleryItem.className = 'gallery-item block rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl animate-on-scroll bounceIn';
+            galleryItem.style.animationDelay = `${index * 100}ms`;
+            galleryItem.dataset.category = item.category;
+            galleryItem.dataset.src = item.src;
+            galleryItem.dataset.alt = item.alt;
+            galleryItem.dataset.description = item.description;
+            galleryItem.dataset.caption = item.alt;
+            galleryItem.innerHTML = `
+              <img src="${item.src}" alt="${item.alt}" class="w-full h-48 sm:h-64 object-cover rounded-xl" loading="lazy" />
+            `;
+            galleryGrid.appendChild(galleryItem);
+          });
+
+          loadingSpinner.classList.add('hidden');
+          updateGallerySources();
+          attachGalleryListeners();
+
+          // Trigger scroll animations
+          setTimeout(() => {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+              observer.observe(el);
+            });
+          }, 100);
+        }, 500); // Simulate loading delay
       }
 
-      menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleMobileMenu();
-      });
-
-      document.querySelectorAll("#mobileMenu a").forEach(link => {
-        link.addEventListener("click", () => toggleMobileMenu());
-      });
-
-      window.addEventListener("click", (event) => {
-        if (mobileMenu.classList.contains("open") && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
-          toggleMobileMenu();
-        }
-      });
-
-      // Gallery Functionality
-      const modal = document.getElementById("image-modal");
-      const modalImage = document.getElementById("modal-image");
-      const modalImageAlt = document.getElementById("modal-image-alt");
-      const modalImageDescription = document.getElementById("modal-image-description");
-      const closeModalButton = document.getElementById("close-modal-button");
-      const prevButton = document.getElementById("prev-button");
-      const nextButton = document.getElementById("next-button");
-      const zoomInButton = document.getElementById("zoom-in-button");
-      const zoomOutButton = document.getElementById("zoom-out-button");
-
-      const galleryItems = document.querySelectorAll(".gallery-item");
-      let gallerySources = Array.from(galleryItems).map(item => ({
-        src: item.dataset.src,
-        alt: item.dataset.alt || "Himalayan vista",
-        category: item.dataset.category,
-        description: item.dataset.description
-      }));
-      let currentIndex = 0;
-      let zoomLevel = 1;
-
+      // Update Gallery Sources
       function updateGallerySources() {
-        gallerySources = Array.from(document.querySelectorAll(".gallery-item")).map(item => ({
+        gallerySources = Array.from(document.querySelectorAll('.gallery-item')).map(item => ({
           src: item.dataset.src,
-          alt: item.dataset.alt || "Himalayan vista",
+          alt: item.dataset.alt || 'Himalayan vista',
           category: item.dataset.category,
           description: item.dataset.description
         }));
       }
+
+      // Gallery Modal Functionality
+      const modal = document.getElementById('image-modal');
+      const modalImage = document.getElementById('modal-image');
+      const modalImageAlt = document.getElementById('modal-image-alt');
+      const modalImageDescription = document.getElementById('modal-image-description');
+      const closeModalButton = document.getElementById('close-modal-button');
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const zoomInButton = document.getElementById('zoom-in-button');
+      const zoomOutButton = document.getElementById('zoom-out-button');
+      let gallerySources = [];
+      let currentIndex = 0;
+      let zoomLevel = 1;
 
       function showImage(index) {
         modalImage.src = gallerySources[index].src;
@@ -369,17 +445,19 @@
         currentIndex = index;
         zoomLevel = 1;
         modalImage.style.transform = `scale(${zoomLevel})`;
-        modal.classList.add("open");
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
       }
 
       function openModal(index) {
         showImage(index);
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = 'hidden';
       }
 
       function closeModal() {
-        modal.classList.remove("open");
-        document.body.style.overflow = "";
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
         zoomLevel = 1;
         modalImage.style.transform = `scale(${zoomLevel})`;
       }
@@ -394,104 +472,141 @@
         showImage(prevIndex);
       }
 
-      galleryItems.forEach((item, index) => {
-        item.addEventListener("click", (event) => {
-          event.preventDefault();
-          openModal(index);
+      function attachGalleryListeners() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+          item.addEventListener('click', (event) => {
+            event.preventDefault();
+            openModal(index);
+          });
         });
-      });
+      }
 
-      closeModalButton.addEventListener("click", closeModal);
-      nextButton.addEventListener("click", showNextImage);
-      prevButton.addEventListener("click", showPrevImage);
-      zoomInButton.addEventListener("click", () => {
+      closeModalButton.addEventListener('click', closeModal);
+      nextButton.addEventListener('click', showNextImage);
+      prevButton.addEventListener('click', showPrevImage);
+      zoomInButton.addEventListener('click', () => {
         zoomLevel = Math.min(zoomLevel + 0.2, 2);
         modalImage.style.transform = `scale(${zoomLevel})`;
       });
-      zoomOutButton.addEventListener("click", () => {
+      zoomOutButton.addEventListener('click', () => {
         zoomLevel = Math.max(zoomLevel - 0.2, 0.8);
         modalImage.style.transform = `scale(${zoomLevel})`;
       });
 
-      modal.addEventListener("click", (event) => {
+      modal.addEventListener('click', (event) => {
         if (event.target === modal) closeModal();
       });
 
       // Swipe Gestures for Mobile
       let touchStartX = 0;
       let touchEndX = 0;
-      modal.addEventListener("touchstart", (e) => {
+      modal.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
       });
-      modal.addEventListener("touchend", (e) => {
+      modal.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         if (touchEndX < touchStartX - 50) showNextImage();
         if (touchEndX > touchStartX + 50) showPrevImage();
       });
 
-      document.addEventListener("keydown", (event) => {
-        if (!modal.classList.contains("open")) return;
-        if (event.key === "Escape") closeModal();
-        if (event.key === "ArrowRight") showNextImage();
-        if (event.key === "ArrowLeft") showPrevImage();
+      // Keyboard Navigation
+      document.addEventListener('keydown', (event) => {
+        if (modal.getAttribute('aria-hidden') === 'true') return;
+        if (event.key === 'Escape') closeModal();
+        if (event.key === 'ArrowRight') showNextImage();
+        if (event.key === 'ArrowLeft') showPrevImage();
       });
 
       // Gallery Filtering
-      const filterButtons = document.querySelectorAll(".filter-btn");
-      const galleryGrid = document.getElementById("gallery-grid");
+      const filterButtons = document.querySelectorAll('.filter-btn');
       filterButtons.forEach(button => {
-        button.addEventListener("click", () => {
+        button.addEventListener('click', () => {
           filterButtons.forEach(btn => {
-            btn.classList.remove("active", "bg-green-600", "text-white");
-            btn.classList.add("border-2", "border-green-600", "text-green-600");
-            btn.setAttribute("aria-pressed", "false");
+            btn.classList.remove('active', 'bg-green-800', 'text-white', 'scale-105', 'animate-pulse');
+            btn.classList.add('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+            btn.setAttribute('aria-pressed', 'false');
           });
-          button.classList.add("active", "bg-green-600", "text-white");
-          button.classList.remove("border-2", "border-green-600", "text-green-600");
-          button.setAttribute("aria-pressed", "true");
-
-          const filter = button.dataset.filter;
-          const filteredItems = filter === "all" ? Array.from(galleryItems) : Array.from(galleryItems).filter(item => item.dataset.category === filter);
-          galleryGrid.innerHTML = "";
-          filteredItems.forEach((item, index) => {
-            item.style.transitionDelay = `${index * 100}ms`;
-            galleryGrid.appendChild(item);
-          });
-          updateGallerySources();
+          button.classList.add('active', 'bg-green-800', 'text-white', 'scale-105', 'animate-pulse');
+          button.classList.remove('text-green-800', 'hover:bg-green-800', 'hover:text-white');
+          button.setAttribute('aria-pressed', 'true');
+          currentFilter = button.dataset.filter;
+          renderGallery();
         });
       });
 
-      // Parallax Effect
-      const header = document.querySelector(".gallery-header-bg");
-      window.addEventListener("scroll", () => {
+      // Mobile Menu Toggle
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      const closeIcon = document.getElementById('closeIcon');
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+
+      const toggleMenu = () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open', !isOpen);
+        menuIcon.classList.toggle('hidden', !isOpen);
+        closeIcon.classList.toggle('hidden', isOpen);
+      };
+
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
+      });
+
+      // Scroll Animation
+      const scrollElements = document.querySelectorAll('.animate-on-scroll');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      scrollElements.forEach((el) => observer.observe(el));
+
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      const backToTopBtn = document.querySelector('.back-to-top');
+
+      window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY;
-        header.style.backgroundPositionY = `${scrollPosition * 0.3}px`;
-      });
 
-      // Scroll Animations
-      const scrollElements = document.querySelectorAll(".animate-on-scroll");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.add('bg-white/90', 'backdrop-blur-md');
 
-      scrollElements.forEach(el => observer.observe(el));
-
-      // Navbar Scroll Effect
-      window.addEventListener("scroll", () => {
-        const navbar = document.getElementById("navbar");
-        if (window.scrollY > 50) {
-          navbar.classList.add("shadow-md", "bg-white");
-          navbar.classList.remove("bg-white/90");
+        if (scrollPosition > 50) {
+          navbar.classList.add('navbar-scrolled');
+          navbar.classList.remove('bg-white/90');
+          backToTopBtn.classList.remove('opacity-0', 'invisible');
+          backToTopBtn.classList.add('opacity-100', 'visible');
         } else {
-          navbar.classList.remove("shadow-md", "bg-white");
-          navbar.classList.add("bg-white/90");
+          navbar.classList.remove('navbar-scrolled');
+          navbar.classList.add('bg-white/90');
+          backToTopBtn.classList.add('opacity-0', 'invisible');
+          backToTopBtn.classList.remove('opacity-100', 'visible');
         }
       });
+
+      // Back to Top button functionality
+      backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+
+      // Initial Render
+      renderGallery();
     });
   </script>
 </body>
