@@ -187,14 +187,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-      .cart-badge {
-        transition: all 0.3s ease-in-out;
-      }
-      .cart-badge.active {
-        background: linear-gradient(45deg, #16a34a, #22c55e);
-        color: white;
-        transform: scale(1.1);
-      }
       .scrollbar-hide::-webkit-scrollbar {
         display: none;
       }
@@ -202,7 +194,8 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
-      @media (max-width: 768px) {
+      /* Responsive Styles */
+      @media (max-width: 640px) {
         .timeline::before {
           left: 20px;
         }
@@ -212,6 +205,7 @@
         }
         .timeline-content {
           margin-left: 40px;
+          width: 100% !important;
         }
         .timeline-dot {
           left: 20px;
@@ -222,7 +216,58 @@
           border-left: none !important;
         }
         header {
-          min-height: 70vh;
+          min-height: 60vh;
+        }
+        h1 {
+          font-size: 2.5rem !important;
+        }
+        h2 {
+          font-size: 1.875rem !important;
+        }
+        h3 {
+          font-size: 1.25rem !important;
+        }
+        p {
+          font-size: 0.875rem !important;
+        }
+        .team-card {
+          height: auto;
+          min-height: 400px;
+        }
+        .team-img-wrapper {
+          width: 120px !important;
+          height: 120px !important;
+        }
+        .alert-modal .max-w-md {
+          max-width: 90% !important;
+          padding: 1rem !important;
+        }
+        .book-now {
+          bottom: 1rem !important;
+          right: 1rem !important;
+        }
+        .book-now {
+          padding: 0.5rem 1rem !important;
+          font-size: 0.875rem !important;
+        }
+      }
+      @media (max-width: 768px) {
+        .md\\:grid-cols-2, .lg\\:grid-cols-3, .lg\\:grid-cols-4 {
+          grid-template-columns: 1fr !important;
+        }
+        .navbar .flex {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .mobile-menu a {
+          padding: 0.75rem !important;
+          font-size: 0.875rem !important;
+        }
+      }
+      @media (min-width: 769px) {
+        .mobile-menu {
+          display: none !important;
         }
       }
     </style>
@@ -230,16 +275,11 @@
 <body class="bg-slate-50 text-slate-700 font-['Inter'] [&_h1]:font-['Poppins'] [&_h2]:font-['Poppins'] [&_h3]:font-['Poppins'] [&_h4]:font-['Poppins'] [&_h5]:font-['Poppins'] [&_h6]:font-['Poppins'] pt-0 m-0">
     <!-- Loader -->
     <div class="loader fixed inset-0 bg-white flex items-center justify-center z-[9999] transition-opacity duration-500">
-      <div class="spinner w-[50px] h-[50px] border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+      <div class="spinner w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
     </div>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top fixed bottom-5 right-5 bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 z-[1000]" aria-label="Back to top">
-      <i class="fas fa-chevron-up"></i>
-    </button>
-
     <!-- Book Now Button -->
-    <a href="contact.html" class="book-now fixed bottom-20 right-5 bg-green-600 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 hover:bg-green-800 transition-all duration-300 z-[1000] animate-float" aria-label="Book now">Book Now</a>
+    <a href="contact.html" class="book-now fixed bottom-16 right-5 bg-green-600 text-white px-4 py-2 rounded-full font-semibold shadow-md hover:scale-105 hover:bg-green-800 transition-all duration-300 z-[1000] animate-float text-sm" aria-label="Book now">Book Now</a>
 
     <!-- Navigation -->
     <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-30 transition-all duration-300">
@@ -249,7 +289,7 @@
             <a href="index.html" class="group hover-lift logo-container rounded-full">
               <div class="flex items-center">
                 <img src="./images/logo.png" onerror="this.src='https://via.placeholder.com/40'" alt="Nepal Treks Logo" class="h-10 w-10 rounded-full object-cover bg-white/90 p-1 group-hover:animate-logoSpin">
-                <span class="ml-2 text-xl font-bold font-['Poppins'] gradient-text">NepalTreks</span>
+                <span class="ml-3 text-xl font-bold font-['Poppins'] gradient-text">NepalTreks</span>
               </div>
             </a>
           </div>
@@ -275,16 +315,8 @@
                 Contact Us
               </a></li>
             </ul>
-            <button id="cartBtn" class="relative text-slate-800 hover:text-green-600 transition-all duration-300 animate-bounceIn" aria-label="View cart">
-              <i class="fas fa-shopping-cart text-lg"></i>
-              <span id="cartCount" class="cart-badge absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-gray-200 text-xs font-semibold text-slate-800 rounded-full">0</span>
-            </button>
           </div>
-          <div class="md:hidden flex items-center space-x-4">
-            <button id="cartBtnMobile" class="relative text-slate-800 hover:text-green-600 transition-all duration-300 animate-bounceIn" aria-label="View cart">
-              <i class="fas fa-shopping-cart text-lg"></i>
-              <span id="cartCountMobile" class="cart-badge absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-gray-200 text-xs font-semibold text-slate-800 rounded-full">0</span>
-            </button>
+          <div class="md:hidden flex items-center">
             <button id="menuBtn" class="text-slate-800 focus:outline-none p-2 rounded-md hover:bg-slate-100 transition-all duration-300 hover:shadow-xl" aria-label="Toggle menu">
               <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
@@ -296,7 +328,7 @@
           </div>
         </div>
       </div>
-      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md">
+      <div id="mobileMenu" class="md:hidden bg-white/95 backdrop-blur-md mobile-menu">
         <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
           <a href="index.html" class="block text-slate-800 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">Home</a>
           <a href="about.html" class="block bg-green-600 text-white px-3 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-xl">About</a>
@@ -307,46 +339,18 @@
       </div>
     </nav>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-      <div class="bg-white rounded-xl p-5 sm:p-6 max-w-lg w-full mx-4 animate-scaleIn">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xl sm:text-2xl font-bold text-slate-800">
-            <i class="fas fa-shopping-cart mr-2 text-green-600"></i>Your Cart
-          </h3>
-          <button id="closeCart" class="text-slate-600 hover:text-slate-800 transition-colors duration-300" aria-label="Close cart">
-            <i class="fas fa-times text-lg"></i>
-          </button>
-        </div>
-        <div id="cartItems" class="mt-4 space-y-4 max-h-60 overflow-y-auto scrollbar-hide"></div>
-        <div class="mt-6 flex justify-between items-center">
-          <div>
-            <p class="text-base sm:text-lg font-semibold text-slate-800">Total: <span id="cartTotal" class="text-green-600">Rs.0</span></p>
-          </div>
-          <div class="flex gap-2">
-            <button id="clearCart" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
-              <i class="fas fa-trash mr-1 sm:mr-2"></i>Clear Cart
-            </button>
-            <a id="proceedToBooking" href="#" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
-              <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Book Now
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Alert Modal for Messages -->
-    <div id="alertModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
-      <div class="bg-white rounded-xl p-5 sm:p-6 max-w-md w-full mx-4 animate-scaleIn">
+    <div id="alertModal" class="alert-modal fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50" aria-hidden="true">
+      <div class="bg-white rounded-xl p-4 sm:p-5 max-w-md w-11/12 mx-4 animate-scaleIn">
         <div class="text-center">
-          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-scaleIn">
-            <i id="alertIcon" class="fas fa-check text-xl text-green-600"></i>
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 animate-scaleIn">
+            <i id="alertIcon" class="fas fa-check text-lg text-green-600"></i>
           </div>
-          <h3 id="alertTitle" class="text-lg font-bold text-slate-800"></h3>
-          <p id="alertMessage" class="mt-2 text-sm sm:text-base text-slate-600"></p>
+          <h3 id="alertTitle" class="text-base font-bold text-slate-800"></h3>
+          <p id="alertMessage" class="mt-2 text-sm text-slate-600"></p>
         </div>
-        <div class="mt-6 flex justify-center">
-          <button id="closeAlert" class="px-4 sm:px-6 py-1.5 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm sm:text-base">
+        <div class="mt-4 flex justify-center">
+          <button id="closeAlert" class="px-4 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-xl text-sm">
             Continue Exploring
           </button>
         </div>
@@ -354,63 +358,63 @@
     </div>
 
     <!-- Page Header -->
-    <header class="bg-cover bg-center min-h-[calc(100vh-64px)] pt-16" style="background-image: url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');">
+    <header class="bg-cover bg-center min-h-[60vh] sm:min-h-[70vh] pt-16" style="background-image: url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');">
       <div class="bg-black/60 h-full flex items-center justify-center">
         <div class="text-center text-white px-4">
-          <h1 class="text-4xl md:text-6xl font-extrabold animate-bounceIn">Our Story</h1>
-          <p class="mt-2 text-lg md:text-xl animate-fadeInUp" style="animation-delay: 0.2s;">Our Journey, Our Passion, Our Promise</p>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold animate-bounceIn">Our Story</h1>
+          <p class="mt-2 text-base sm:text-lg animate-fadeInUp" style="animation-delay: 0.2s;">Our Journey, Our Passion, Our Promise</p>
         </div>
       </div>
     </header>
 
     <!-- Our Mission Section -->
-    <section class="py-20 lg:py-28 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section class="py-12 sm:py-20 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div class="animate-slideInLeft">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Mission</h2>
-          <p class="mt-6 text-lg text-slate-600 leading-relaxed animate-fadeInUp" style="animation-delay: 100ms;">We believe trekking is more than just a walk; it’s a journey into the heart of nature, culture, and oneself. Nepal Treks was born from a deep-rooted passion for the Himalayas and a desire to share its magic with the world.</p>
-          <p class="mt-4 text-slate-600 leading-relaxed animate-fadeInUp" style="animation-delay: 200ms;">Our mission is to provide authentic, safe, and sustainable trekking experiences that forge a lasting connection between our guests and the majestic landscapes and warm-hearted people of Nepal. We handle the details so you can immerse yourself in the adventure.</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Mission</h2>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed animate-fadeInUp" style="animation-delay: 100ms;">We believe trekking is more than just a walk; it’s a journey into the heart of nature, culture, and oneself. Nepal Treks was born from a deep-rooted passion for the Himalayas and a desire to share its magic with the world.</p>
+          <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed animate-fadeInUp" style="animation-delay: 200ms;">Our mission is to provide authentic, safe, and sustainable trekking experiences that forge a lasting connection between our guests and the majestic landscapes and warm-hearted people of Nepal.</p>
         </div>
         <div class="animate-slideInRight" style="transition-delay: 150ms;">
-          <img src="./images/mission.avif" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="A guide pointing towards mountains" class="rounded-xl shadow-2xl w-full h-full object-cover animate-bounceIn" style="animation-delay: 300ms;" loading="lazy">
+          <img src="./images/mission.avif" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="A guide pointing towards mountains" class="rounded-xl shadow-2xl w-full h-auto object-cover animate-bounceIn" style="animation-delay: 300ms;" loading="lazy">
         </div>
       </div>
     </section>
 
     <!-- Our Journey Timeline -->
-    <section class="py-20 lg:py-28 bg-slate-50">
+    <section class="py-12 sm:py-20 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Journey</h2>
-          <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Milestones that shaped Nepal Treks</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Journey</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Milestones that shaped Nepal Treks</p>
         </div>
-        <div class="timeline mt-16 py-8">
+        <div class="timeline mt-12 py-8">
           <div class="timeline-item flex md:flex-row flex-col items-center mb-8 animate-slideInLeft" style="transition-delay: 200ms;">
-            <div class="timeline-dot w-5 h-5 bg-green-600 border-4 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse"></div>
-            <div class="timeline-content w-full md:w-5/12 bg-white p-6 rounded-xl shadow-lg md:mr-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-              <h3 class="text-xl font-bold text-slate-800 animate-fadeInUp">2010: Founded</h3>
-              <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Nepal Treks was born from Dorje Sherpa's vision to share the Himalayas with the world.</p>
+            <div class="timeline-dot w-4 h-4 bg-green-600 border-3 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse"></div>
+            <div class="timeline-content w-full md:w-5/12 bg-white p-4 sm:p-6 rounded-xl shadow-lg md:mr-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+              <h3 class="text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">2010: Founded</h3>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Nepal Treks was born from Dorje Sherpa's vision to share the Himalayas with the world.</p>
             </div>
           </div>
           <div class="timeline-item flex md:flex-row-reverse flex-col items-center mb-8 animate-slideInRight" style="transition-delay: 300ms;">
-            <div class="timeline-dot w-5 h-5 bg-green-600 border-4 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 100ms;"></div>
-            <div class="timeline-content w-full md:w-5/12 bg-white p-6 rounded-xl shadow-lg md:ml-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-              <h3 class="text-xl font-bold text-slate-800 animate-fadeInUp">2015: First International Group</h3>
-              <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Led our first international trekking group to Everest Base Camp, a major milestone.</p>
+            <div class="timeline-dot w-4 h-4 bg-green-600 border-3 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 100ms;"></div>
+            <div class="timeline-content w-full md:w-5/12 bg-white p-4 sm:p-6 rounded-xl shadow-lg md:ml-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+              <h3 class="text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">2015: First International Group</h3>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Led our first international trekking group to Everest Base Camp, a major milestone.</p>
             </div>
           </div>
           <div class="timeline-item flex md:flex-row flex-col items-center mb-8 animate-slideInLeft" style="transition-delay: 400ms;">
-            <div class="timeline-dot w-5 h-5 bg-green-600 border-4 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 200ms;"></div>
-            <div class="timeline-content w-full md:w-5/12 bg-white p-6 rounded-xl shadow-lg md:mr-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-              <h3 class="text-xl font-bold text-slate-800 animate-fadeInUp">2018: Sustainability Pledge</h3>
-              <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Committed to eco-friendly practices, partnering with local communities for sustainable tourism.</p>
+            <div class="timeline-dot w-4 h-4 bg-green-600 border-3 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 200ms;"></div>
+            <div class="timeline-content w-full md:w-5/12 bg-white p-4 sm:p-6 rounded-xl shadow-lg md:mr-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+              <h3 class="text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">2018: Sustainability Pledge</h3>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Committed to eco-friendly practices, partnering with local communities for sustainable tourism.</p>
             </div>
           </div>
           <div class="timeline-item flex md:flex-row-reverse flex-col items-center mb-8 animate-slideInRight" style="transition-delay: 500ms;">
-            <div class="timeline-dot w-5 h-5 bg-green-600 border-4 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 300ms;"></div>
-            <div class="timeline-content w-full md:w-5/12 bg-white p-6 rounded-xl shadow-lg md:ml-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-              <h3 class="text-xl font-bold text-slate-800 animate-fadeInUp">2023: 1000th Trekker</h3>
-              <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Celebrated guiding our 1000th trekker, a testament to our growing family of adventurers.</p>
+            <div class="timeline-dot w-4 h-4 bg-green-600 border-3 border-white rounded-full absolute left-1/2 -translate-x-1/2 z-10 animate-pulse" style="animation-delay: 300ms;"></div>
+            <div class="timeline-content w-full md:w-5/12 bg-white p-4 sm:p-6 rounded-xl shadow-lg md:ml-4 animate-bounceIn hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+              <h3 class="text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">2023: 1000th Trekker</h3>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">Celebrated guiding our 1000th trekker, a testament to our growing family of adventurers.</p>
             </div>
           </div>
         </div>
@@ -418,54 +422,54 @@
     </section>
 
     <!-- Meet the Team Section -->
-    <section class="py-20 lg:py-28 bg-white">
+    <section class="py-12 sm:py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Meet Our Team</h2>
-          <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">The Heart and Soul of Your Adventure</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Meet Our Team</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">The Heart and Soul of Your Adventure</p>
         </div>
-        <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <div class="team-card animate-bounceIn" style="transition-delay: 200ms;">
             <div class="team-card-inner">
-              <div class="team-card-front flex flex-col items-center p-8">
-                <div class="w-36 h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
+              <div class="team-card-front flex flex-col items-center p-6">
+                <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
                   <img class="w-full h-full rounded-full object-cover" src="https://images.unsplash.com/photo-1580572833035-7117f7a75269?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Dorje Sherpa" loading="lazy">
                 </div>
-                <h3 class="mt-6 text-2xl font-bold text-slate-800 animate-fadeInUp">Dorje Sherpa</h3>
+                <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">Dorje Sherpa</h3>
                 <p class="text-green-600 font-semibold mt-1 animate-fadeInUp" style="animation-delay: 100ms;">Founder & Lead Guide</p>
-                <p class="mt-4 text-slate-600 text-sm animate-fadeInUp" style="animation-delay: 200ms;">With 20+ years of high-altitude experience, Dorje's leadership is the bedrock of our company.</p>
+                <p class="mt-3 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">With 20+ years of high-altitude experience, Dorje's leadership is the bedrock of our company.</p>
               </div>
-              <div class="team-card-back flex items-center justify-center text-center p-8 text-white text-sm italic">
+              <div class="team-card-back flex items-center justify-center text-center p-6 text-white text-sm italic">
                 <p>"The mountains teach us humility and strength." – Dorje</p>
               </div>
             </div>
           </div>
           <div class="team-card animate-bounceIn" style="transition-delay: 300ms;">
             <div class="team-card-inner">
-              <div class="team-card-front flex flex-col items-center p-8">
-                <div class="w-36 h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
+              <div class="team-card-front flex flex-col items-center p-6">
+                <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
                   <img class="w-full h-full rounded-full object-cover" src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Pema Lama" loading="lazy">
                 </div>
-                <h3 class="mt-6 text-2xl font-bold text-slate-800 animate-fadeInUp">Pema Lama</h3>
+                <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">Pema Lama</h3>
                 <p class="text-green-600 font-semibold mt-1 animate-fadeInUp" style="animation-delay: 100ms;">Operations Manager</p>
-                <p class="mt-4 text-slate-600 text-sm animate-fadeInUp" style="animation-delay: 200ms;">Pema ensures every detail of your trip is perfectly arranged for a seamless experience.</p>
+                <p class="mt-3 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Pema ensures every detail of your trip is perfectly arranged for a seamless experience.</p>
               </div>
-              <div class="team-card-back flex items-center justify-center text-center p-8 text-white text-sm italic">
+              <div class="team-card-back flex items-center justify-center text-center p-6 text-white text-sm italic">
                 <p>"Planning your adventure is my adventure!" – Pema</p>
               </div>
             </div>
           </div>
           <div class="team-card animate-bounceIn" style="transition-delay: 400ms;">
             <div class="team-card-inner">
-              <div class="team-card-front flex flex-col items-center p-8">
-                <div class="w-36 h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
+              <div class="team-card-front flex flex-col items-center p-6">
+                <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto team-img-wrapper animate-scaleIn transition-transform duration-300 hover:scale-110">
                   <img class="w-full h-full rounded-full object-cover" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Rinzin Gurung" loading="lazy">
                 </div>
-                <h3 class="mt-6 text-2xl font-bold text-slate-800 animate-fadeInUp">Rinzin Gurung</h3>
+                <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp">Rinzin Gurung</h3>
                 <p class="text-green-600 font-semibold mt-1 animate-fadeInUp" style="animation-delay: 100ms;">Cultural Guide</p>
-                <p class="mt-4 text-slate-600 text-sm animate-fadeInUp" style="animation-delay: 200ms;">Rinzin enriches your trek with fascinating stories and insights into Nepali culture.</p>
+                <p class="mt-3 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Rinzin enriches your trek with fascinating stories and insights into Nepali culture.</p>
               </div>
-              <div class="team-card-back flex items-center justify-center text-center p-8 text-white text-sm italic">
+              <div class="team-card-back flex items-center justify-center text-center p-6 text-white text-sm italic">
                 <p>"Every trail tells a story of our heritage." – Rinzin</p>
               </div>
             </div>
@@ -475,69 +479,69 @@
     </section>
 
     <!-- Moments from Our Treks Section -->
-    <section class="py-20 lg:py-28 bg-slate-50">
+    <section class="py-12 sm:py-20 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Moments from Our Treks</h2>
-          <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">A glimpse into the adventures we’ve shared</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Moments from Our Treks</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">A glimpse into the adventures we’ve shared</p>
         </div>
-        <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <div class="gallery-item animate-bounceIn relative overflow-hidden rounded-xl" style="transition-delay: 200ms;" data-caption="Sunrise at Everest Base Camp">
-            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Sunrise at Everest Base Camp" class="w-full h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Sunrise at Everest Base Camp" class="w-full h-56 sm:h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
           </div>
           <div class="gallery-item animate-bounceIn relative overflow-hidden rounded-xl" style="transition-delay: 300ms;" data-caption="Annapurna Circuit Trek">
-            <img src="./images/annapurna.jpg" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="Annapurna Circuit Trek" class="w-full h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
+            <img src="./images/annapurna.jpg" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="Annapurna Circuit Trek" class="w-full h-56 sm:h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
           </div>
           <div class="gallery-item animate-bounceIn relative overflow-hidden rounded-xl" style="transition-delay: 400ms;" data-caption="Langtang Valley Culture">
-            <img src="./images/langtang.webp" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="Langtang Valley Culture" class="w-full h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
+            <img src="./images/langtang.webp" onerror="this.src='https://images.unsplash.com/photo-1542224560-5c6b94c327b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'" alt="Langtang Valley Culture" class="w-full h-56 sm:h-64 object-cover animate-scaleIn transition-transform duration-500 hover:scale-110" loading="lazy">
           </div>
         </div>
       </div>
     </section>
 
     <!-- Our Core Values Section -->
-    <section class="py-20 lg:py-28 bg-white">
+    <section class="py-12 sm:py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Core Values</h2>
-          <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">The principles that guide every step we take.</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight animate-bounceIn">Our Core Values</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 animate-fadeInUp" style="animation-delay: 100ms;">The principles that guide every step we take.</p>
         </div>
-        <div class="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div class="text-center p-4 animate-bounceIn" style="transition-delay: 200ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
+              <svg class="h-7 w-7 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.916 17.916 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.004 9.004 0 0112 21" />
               </svg>
             </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Authenticity</h3>
-            <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Experience the real Nepal through our local guides, homestays, and community interactions.</p>
+            <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Authenticity</h3>
+            <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Experience the real Nepal through our local guides, homestays, and community interactions.</p>
           </div>
           <div class="text-center p-4 animate-bounceIn" style="transition-delay: 300ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
+              <svg class="h-7 w-7 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286z" />
               </svg>
             </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Safety</h3>
-            <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Your well-being is our top priority. We use the best equipment and follow strict safety standards.</p>
+            <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Safety</h3>
+            <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">Your well-being is our top priority. We use the best equipment and follow strict safety standards.</p>
           </div>
           <div class="text-center p-4 animate-bounceIn" style="transition-delay: 400ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
+              <svg class="h-7 w-7 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V5.75A2.25 2.25 0 0018 3.5H6A2.25 2.25 0 003.75 5.75v12.5A2.25 2.25 0 006 20.25z" />
               </svg>
             </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Sustainability</h3>
-            <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">We practice "leave no trace" ethics and invest in local communities to protect our beautiful home.</p>
+            <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Sustainability</h3>
+            <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">We practice "leave no trace" ethics and invest in local communities to protect our beautiful home.</p>
           </div>
           <div class="text-center p-4 animate-bounceIn" style="transition-delay: 500ms;">
-            <div class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
-              <svg class="h-8 w-8 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-green-50 to-green-200 mx-auto shadow-sm hover:scale-110 transition-transform duration-300 animate-bounceIn">
+              <svg class="h-7 w-7 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
               </svg>
             </div>
-            <h3 class="mt-5 text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Passion</h3>
-            <p class="mt-2 text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">We absolutely love what we do, and our passion for the mountains is infectious!</p>
+            <h3 class="mt-4 text-lg sm:text-xl font-bold text-slate-800 animate-fadeInUp" style="animation-delay: 100ms;">Passion</h3>
+            <p class="mt-2 text-sm sm:text-base text-slate-600 animate-fadeInUp" style="animation-delay: 200ms;">We absolutely love what we do, and our passion for the mountains is infectious!</p>
           </div>
         </div>
       </div>
@@ -545,57 +549,57 @@
 
     <!-- Call to Action Section -->
     <section id="call-to-action" class="bg-gradient-to-br from-green-700 to-green-800">
-      <div class="max-w-4xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-8">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white animate-bounceIn">
+      <div class="max-w-4xl mx-auto text-center py-12 sm:py-16 px-4 sm:px-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white animate-bounceIn">
           <span class="block animate-fadeInUp">Ready for your adventure?</span>
         </h2>
-        <p class="mt-4 text-lg leading-6 text-green-200 animate-fadeInUp" style="animation-delay: 150ms;">Let's find the perfect trek for you. Explore our packages and start your journey.</p>
-        <a href="packages.html" class="mt-8 inline-block bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 hover:bg-green-50 hover:animate-pulse transition-all duration-300 animate-bounceIn" style="animation-delay: 300ms;">View Trekking Packages</a>
+        <p class="mt-4 text-base sm:text-lg leading-6 text-green-200 animate-fadeInUp" style="animation-delay: 150ms;">Let's find the perfect trek for you. Explore our packages and start your journey.</p>
+        <a href="packages.html" class="mt-6 inline-block bg-white text-green-700 px-6 py-3 rounded-full text-base font-semibold shadow-lg hover:scale-105 hover:bg-green-50 hover:animate-pulse transition-all duration-300 animate-bounceIn" style="animation-delay: 300ms;">View Trekking Packages</a>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-green-800 text-white">
-      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="col-span-1 md:col-span-1 animate-fadeInUp">
-          <h3 class="text-2xl font-bold">Nepal<span class="text-green-400">Treks</span></h3>
-          <p class="mt-4 text-green-200">Crafting unforgettable Himalayan adventures since 2010.</p>
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="col-span-1 animate-fadeInUp">
+          <h3 class="text-lg sm:text-xl font-bold">Nepal<span class="text-green-400">Treks</span></h3>
+          <p class="mt-3 text-sm sm:text-base text-green-200">Crafting unforgettable Himalayan adventures since 2010.</p>
         </div>
         <div class="animate-slideInLeft" style="transition-delay: 100ms;">
-          <h4 class="text-lg font-semibold text-green-300">Quick Links</h4>
-          <ul class="mt-4 space-y-2">
-            <li><a href="about.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">About Us</a></li>
-            <li><a href="packages.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Our Treks</a></li>
-            <li><a href="gallery.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Gallery</a></li>
-            <li><a href="contact.html" class="hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Contact</a></li>
+          <h4 class="text-base sm:text-lg font-semibold text-green-300">Quick Links</h4>
+          <ul class="mt-3 space-y-2">
+            <li><a href="about.html" class="text-sm sm:text-base hover:text-green-400 transition-colors duration-300 hover:translate-x-2">About Us</a></li>
+            <li><a href="packages.html" class="text-sm sm:text-base hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Our Treks</a></li>
+            <li><a href="gallery.html" class="text-sm sm:text-base hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Gallery</a></li>
+            <li><a href="contact.html" class="text-sm sm:text-base hover:text-green-400 transition-colors duration-300 hover:translate-x-2">Contact</a></li>
           </ul>
         </div>
         <div class="animate-slideInRight" style="transition-delay: 200ms;">
-          <h4 class="text-lg font-semibold text-green-300">Contact</h4>
-          <ul class="mt-4 space-y-2 text-green-200">
-            <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-envelope"></i></span> info@nepaltreks.com</li>
-            <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-phone"></i></span> +977 123 456789</li>
-            <li class="flex items-start hover:translate-x-2 transition-transform duration-300"><span class="mr-2 mt-1"><i class="fas fa-map-marker-alt"></i></span> Belbari, Morang, Nepal</li>
+          <h4 class="text-base sm:text-lg font-semibold text-green-300">Contact</h4>
+          <ul class="mt-3 space-y-2 text-green-200">
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-300 text-sm sm:text-base"><span class="mr-2 mt-1"><i class="fas fa-envelope"></i></span> info@nepaltreks.com</li>
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-300 text-sm sm:text-base"><span class="mr-2 mt-1"><i class="fas fa-phone"></i></span> +977 123 456789</li>
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-300 text-sm sm:text-base"><span class="mr-2 mt-1"><i class="fas fa-map-marker-alt"></i></span> Belbari, Morang, Nepal</li>
           </ul>
         </div>
         <div class="animate-fadeInUp" style="transition-delay: 300ms;">
-          <h4 class="text-lg font-semibold text-green-300">Follow Us</h4>
-          <div class="mt-4 flex space-x-4">
-            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-facebook-f text-xl"></i></a>
-            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
-            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125"><i class="fab fa-youtube text-xl"></i></a>
+          <h4 class="text-base sm:text-lg font-semibold text-green-300">Follow Us</h4>
+          <div class="mt-3 flex space-x-3">
+            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125 text-base"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125 text-base"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125 text-base"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-green-200 hover:text-white transition-colors duration-300 hover:scale-125 text-base"><i class="fab fa-youtube"></i></a>
           </div>
-          <h4 class="text-lg font-semibold text-green-300 mt-6">Newsletter</h4>
+          <h4 class="text-base sm:text-lg font-semibold text-green-300 mt-4">Newsletter</h4>
           <div class="mt-2 flex">
-            <input type="email" placeholder="Your email" class="px-3 py-2 bg-green-700 text-white placeholder-green-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full" aria-label="Enter your email for newsletter">
-            <button class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-r-lg transition-colors duration-300" aria-label="Subscribe to newsletter">
+            <input type="email" placeholder="Your email" class="px-3 py-2 bg-green-700 text-white placeholder-green-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full text-sm" aria-label="Enter your email for newsletter">
+            <button class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded-r-lg transition-colors duration-300 text-sm" aria-label="Subscribe to newsletter">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>
         </div>
       </div>
-      <div class="mt-8 border-t border-green-700 py-6 text-center text-green-200 animate-fadeInUp" style="transition-delay: 400ms;">
+      <div class="mt-6 border-t border-green-700 py-4 text-center text-green-200 animate-fadeInUp text-sm" style="transition-delay: 400ms;">
         <p>© 2025 Nepal Treks. All Rights Reserved. Adventure Awaits.</p>
       </div>
     </footer>
@@ -659,7 +663,6 @@
         // Navbar scroll effect
         const navbar = document.getElementById("navbar");
         const callToActionSection = document.getElementById("call-to-action");
-        const backToTopBtn = document.querySelector(".back-to-top");
 
         window.addEventListener("scroll", () => {
           const scrollPosition = window.scrollY;
@@ -674,13 +677,9 @@
             if (scrollPosition > 50) {
               navbar.classList.add("navbar-scrolled");
               navbar.classList.remove("bg-white/90");
-              backToTopBtn?.classList.remove("opacity-0", "invisible");
-              backToTopBtn?.classList.add("opacity-100", "visible");
             } else {
               navbar.classList.remove("navbar-scrolled");
               navbar.classList.add("bg-white/90");
-              backToTopBtn?.classList.add("opacity-0", "invisible");
-              backToTopBtn?.classList.remove("opacity-100", "visible");
             }
 
             if (isInCallToAction) {
@@ -690,83 +689,9 @@
           }
         });
 
-        // Back to Top button functionality
-        backToTopBtn?.addEventListener("click", (e) => {
-          e.preventDefault();
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        });
-
-        // Cart Functionality
-        let cart = null;
-        try {
-          cart = JSON.parse(localStorage.getItem('cart')) || null;
-        } catch (e) {
-          console.error('Error reading localStorage:', e);
-        }
-
-        const cartModal = document.getElementById('cartModal');
-        const cartItems = document.getElementById('cartItems');
-        const cartTotal = document.getElementById('cartTotal');
-        const cartBtn = document.getElementById('cartBtn');
-        const cartBtnMobile = document.getElementById('cartBtnMobile');
-        const cartCount = document.getElementById('cartCount');
-        const cartCountMobile = document.getElementById('cartCountMobile');
-        const closeCart = document.getElementById('closeCart');
-        const clearCart = document.getElementById('clearCart');
-        const proceedToBooking = document.getElementById('proceedToBooking');
+        // Alert Modal Functionality
         const alertModal = document.getElementById('alertModal');
-        const alertTitle = document.getElementById('alertTitle');
-        const alertMessage = document.getElementById('alertMessage');
-        const alertIcon = document.getElementById('alertIcon');
         const closeAlert = document.getElementById('closeAlert');
-
-        function updateCart() {
-          if (!cartItems || !cartTotal || !cartCount || !cartCountMobile || !proceedToBooking) return;
-          
-          const cartCountValue = cart ? 1 : 0;
-          cartCount.textContent = cartCountValue;
-          cartCountMobile.textContent = cartCountValue;
-          cartCount.classList.toggle('active', cartCountValue > 0);
-          cartCountMobile.classList.toggle('active', cartCountValue > 0);
-          cartTotal.textContent = cart ? `Rs.${cart.price.toLocaleString()}` : 'Rs.0';
-          
-          cartItems.innerHTML = cart ? `
-            <div class="flex justify-between items-center border-b border-gray-200 py-3 animate-fadeInUp">
-              <div class="flex items-center">
-                <img src="${cart.image || 'https://via.placeholder.com/50'}" class="w-10 sm:w-12 h-10 sm:h-12 object-cover rounded-lg mr-3" alt="${cart.name}">
-                <div>
-                  <h4 class="text-base sm:text-lg font-semibold">${cart.name}</h4>
-                  <p class="text-xs sm:text-sm text-slate-600">${cart.duration || ''} Days</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-base sm:text-lg font-bold text-green-600">Rs.${cart.price.toLocaleString()}</p>
-                <button class="remove-from-cart text-red-600 hover:text-red-800 text-xs sm:text-sm mt-1" aria-label="Remove ${cart.name} from cart">
-                  <i class="fas fa-trash mr-1"></i>Remove
-                </button>
-              </div>
-            </div>
-          ` : '<div class="text-center py-6 sm:py-8 text-slate-500 animate-fadeInUp"><i class="fas fa-shopping-cart text-3xl sm:text-4xl mb-3"></i><p class="text-sm sm:text-base">Your cart is empty</p></div>';
-          
-          proceedToBooking.setAttribute('href', cart ? `booking.html?trek=${encodeURIComponent(cart.name)}` : '#');
-          try {
-            localStorage.setItem('cart', JSON.stringify(cart));
-          } catch (e) {
-            console.error('Error writing to localStorage:', e);
-          }
-        }
-
-        function showAlert(title, message, type = 'success') {
-          if (!alertModal || !alertTitle || !alertMessage || !alertIcon) return;
-          alertTitle.textContent = title;
-          alertMessage.textContent = message;
-          alertIcon.className = type === 'error' ? 'fas fa-exclamation-triangle text-xl text-red-600' : 'fas fa-check text-xl text-green-600';
-          alertModal.classList.remove('hidden');
-          alertModal.setAttribute('aria-hidden', 'false');
-        }
 
         function closeAlertModal() {
           if (alertModal) {
@@ -775,59 +700,17 @@
           }
         }
 
-        [cartBtn, cartBtnMobile].forEach(btn => {
-          btn?.addEventListener('click', () => {
-            if (cartModal) {
-              cartModal.classList.remove('hidden');
-              cartModal.setAttribute('aria-hidden', 'false');
-            }
-          });
-        });
-
-        cartItems?.addEventListener('click', (e) => {
-          if (e.target.closest('.remove-from-cart')) {
-            cart = null;
-            updateCart();
-            showAlert('Item Removed', 'The item has been removed from your cart.');
-          }
-        });
-
-        closeCart?.addEventListener('click', () => {
-          if (cartModal) {
-            cartModal.classList.add('hidden');
-            cartModal.setAttribute('aria-hidden', 'true');
-          }
-        });
-
-        clearCart?.addEventListener('click', () => {
-          cart = null;
-          updateCart();
-          showAlert('Cart Cleared', 'All items have been removed from your cart.');
-        });
-
         closeAlert?.addEventListener('click', closeAlertModal);
 
         window.addEventListener('click', (event) => {
           if (event.target === alertModal) closeAlertModal();
-          if (event.target === cartModal) {
-            cartModal.classList.add('hidden');
-            cartModal.setAttribute('aria-hidden', 'true');
-          }
         });
 
         document.addEventListener('keydown', (event) => {
-          if (event.key === 'Escape') {
-            if (cartModal && !cartModal.classList.contains('hidden')) {
-              cartModal.classList.add('hidden');
-              cartModal.setAttribute('aria-hidden', 'true');
-            }
-            if (alertModal && !alertModal.classList.contains('hidden')) {
-              closeAlertModal();
-            }
+          if (event.key === 'Escape' && alertModal && !alertModal.classList.contains('hidden')) {
+            closeAlertModal();
           }
         });
-
-        updateCart();
       });
     </script>
 </body>
